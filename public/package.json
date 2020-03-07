@@ -1,0 +1,14 @@
+{
+  "name": "Ovnisreales",
+  "version": "1.0.0",
+  "description": "Ovnis Reales",
+  "main": "index.js",
+  "dependencies": {
+    "sierra-library": "^3.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

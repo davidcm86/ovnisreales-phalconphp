@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-sm-6 aligner">
+        <a href="/">
+            <?php
+                echo Phalcon\Tag::image(
+                [
+                    "img/common/ovni-logo.svg",
+                    "alt" => "Comercio online productos ovnis y extraterrestres",
+                ]);
+            ?>
+        </a>
+    </div>
+    <div class="col-sm-6">
+        <div class="select">
+            <?php
+                echo $this->tag->select(
+                [
+                    'selectLanguage',
+                    $languages,
+                    'using' => [
+                        'language',
+                        'name',
+                    ],
+                    'emptyText'  => 'Elige tu país',
+                ]);
+            ?>
+        </div>
+    </div>
+</div>
