@@ -192,14 +192,33 @@ $di->set("logger", function () {
     return new LogFileAdapter($config->application->logPath);
 });
 
-$di->setShared('Breadcrumbs', function () {
-    return new Breadcrumbs;
-});
 
-// Plugins
-$di->set(
-    'AuthPlugin',
-    function() {
-        $AuthPlugin = new AuthPlugin;
-        return $AuthPlugin;
-}); 
+$dispatcher    = new \Phalcon\Mvc\Dispatcher();
+$eventsManager = new \Phalcon\Events\Manager();
+
+// errores 404 página no encontrada
+$eventsManager->attach("dispatch", function ($event, $dispatcher, $exception) use ($di) {
+
+    if ($event->getType() == 'beforeException') {
+            switch ($exception->getCode()) {
+                case \Phalcon\Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                case \Phalcon\Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                    $dispatcher->forward([
+                        'controller' => 'errores',
+                        'action' => 'notFound',
+                    ]);
+                    return false;
+                default:
+                    $dispatcher->forward([
+                        'controller' => 'errores',
+                        'action' => 'internalError',
+                    ]);
+                return false;
+            }
+        }
+
+    });
+
+$dispatcher->setEventsManager($eventsManager);
+$dispatcher->setDefaultNamespace('Ovnisreales\Controllers');
+$di->setShared('dispatcher', $dispatcher);

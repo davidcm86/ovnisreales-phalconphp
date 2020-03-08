@@ -1,11 +1,15 @@
 <?php
 
+namespace Ovnisreales\Controllers;
 use Phalcon\Mvc\Controller;
+use Phalcon\Http\Response;
 
 class ControllerBase extends Controller
 {
     public function initialize()
     {
+        date_default_timezone_set('Europe/Madrid');
+        setlocale(LC_ALL, 'es_ES.UTF-8');
         $this->view->setTemplateAfter('default');
         $this->assets->addJs('js/common.js');
         // idiomas para subdominios

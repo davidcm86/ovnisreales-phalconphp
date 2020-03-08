@@ -13,6 +13,18 @@ $loader->registerDirs(
         $config->application->formsDir,
     ]
 );
+
+/**
+ * We're a registering a set of directories taken from the configuration file
+ */
+$loader
+    ->registerNamespaces(
+        [
+            'Ovnisreales\Controllers' => $config->application->controllersDir,
+            'Ovnisreales\Models' => $config->application->modelsDir,
+        ]
+    );
+
 if (file_exists(BASE_PATH . '/app/vendor/autoload.php')) {    
     require_once BASE_PATH . '/app/vendor/autoload.php';
 }
