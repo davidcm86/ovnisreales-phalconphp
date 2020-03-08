@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-6 aligner">
+    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
         <a href="/">
             <?php
                 echo Phalcon\Tag::image(
@@ -10,7 +10,7 @@
             ?>
         </a>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
         <div class="select">
             <?php
                 echo $this->tag->select(
@@ -25,5 +25,8 @@
                 ]);
             ?>
         </div>
+    </div>
+    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+        Publicidad
     </div>
 </div>
