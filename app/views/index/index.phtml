@@ -1,19 +1,27 @@
 <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+    <p>TODO: poner un texto de presentación</p>
+</div>
+<div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
     <?php foreach ($categoriasPrincipales as $categoriaPrincipal) { ?>
         <div class="col-sm-6 aligner aligner--centerHoritzontal aligner--centerVertical">
             <div class="row">
-                <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-                    <?php echo $categoriaPrincipal->nombre; ?>
-                </div>
-                <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-                    <?php echo $this->tag->image(
+                <a href="/<?php echo $categoriaPrincipal->slug; ?>">
+                    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+                        <?php echo $categoriaPrincipal->nombre; ?>
+                    </div>
+                    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+                        <?php echo $this->tag->image(
                             [
-                            $categoriaPrincipal->imagen,
-                            'alt' => $categoriaPrincipal->nombre,
-                            'title' => $categoriaPrincipal->nombre
-                            ]
-                        );
-                    ?>
+                                $categoriaPrincipal->imagen,
+                                'alt' => $categoriaPrincipal->nombre,
+                                'title' => $categoriaPrincipal->nombre
+                                ]
+                            );
+                        ?>
+                    </div>
+                </a>
+                <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+                    <p><?php echo $categoriaPrincipal->description_seo; ?></p>
                 </div>
             </div>
         </div>

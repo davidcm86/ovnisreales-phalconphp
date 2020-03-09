@@ -15,19 +15,19 @@ class Categorias extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $nombre_categoria;
+    public $nombre;
 
     /**
      *
      * @var string
      */
-    public $slug_categoria;
+    public $slug;
 
     /**
      *
-     * @var integer
+     * @var string
      */
-    public $categoria_principal_id;
+    public $pais;
 
     /**
      *

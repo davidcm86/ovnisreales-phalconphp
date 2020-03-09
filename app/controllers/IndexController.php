@@ -2,14 +2,14 @@
 
 namespace Ovnisreales\Controllers;
 
-use Ovnisreales\Models\CategoriaPrincipal;
+use Ovnisreales\Models\Categorias;
 
 class IndexController extends ControllerBase
 {
 
     public function indexAction()
     {
-        $categoriasPrincipales = CategoriaPrincipal::find(["conditions" => "pais = '" . DOMINIO_SELECT . "'"]);
+        $categoriasPrincipales = Categorias::find(["conditions" => "pais = '" . DOMINIO_SELECT . "'"]);
         $this->view->categoriasPrincipales = $categoriasPrincipales;
     }
 
