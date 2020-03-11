@@ -1,6 +1,11 @@
 <?php
     define('ENVIRONMENT', isset($_SERVER['APPLICATION_ENV']) ? $_SERVER['APPLICATION_ENV'] : 'development');
-    $variableEntorno = (ENVIRONMENT == 'development') ? 1 : -1; 
+    $variableEntorno = (ENVIRONMENT == 'development') ? 1 : -1;
+    if (ENVIRONMENT == 'development') {
+        defined('RUTA_ARRAYS') || define('RUTA_ARRAYS', APP_PATH . '/config/arrays/');
+    } else {
+        defined('RUTA_ARRAYS') || define('RUTA_ARRAYS', '/var/www/html/ovnisreales/config/arrays');
+    }
     switch (ENVIRONMENT) {
         case 'development':
             switch ($_SERVER['SERVER_NAME']) {
