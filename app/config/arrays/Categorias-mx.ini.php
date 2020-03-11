@@ -1,1 +1,1 @@
-{"mx":{"2":{"nombre":"Tazas de ovnis y extraterrestres mx","slug":"tazas-de-ovnis-y-extraterrestres"},"4":{"nombre":"Camisetas de ovnis y extraterrestres mx","slug":"camisetas-de-ovnis-y-extraterrestres"}}}
+{"es":{"tazas-de-ovnis-y-extraterrestres":"2","camisetas-de-ovnis-y-extraterrestres":"4"}}

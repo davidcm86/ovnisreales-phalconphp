@@ -1,1 +1,1 @@
-{"es":{"1":{"nombre":"Tazas de ovnis y extraterrestres es","slug":"tazas-de-ovnis-y-extraterrestres"},"3":{"nombre":"Camisetas de ovnis y extraterrestres es","slug":"camisetas-de-ovnis-y-extraterrestres"}}}
+{"es":{"tazas-de-ovnis-y-extraterrestres":"1","camisetas-de-ovnis-y-extraterrestres":"3"}}
