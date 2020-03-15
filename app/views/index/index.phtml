@@ -1,10 +1,10 @@
 <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-    <p>TODO: poner un texto de presentación</p>
+    <h1>Tienda online de artículos de ovnis y extraterrestres</h1>
 </div>
-<div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+<div class="row">
     <?php foreach ($categoriasPrincipales as $categoriaPrincipal) { ?>
-        <div class="col-sm-6 aligner aligner--centerHoritzontal aligner--centerVertical">
-            <div class="row">
+        <div class="col-sm-4 aligner aligner--centerHoritzontal aligner--centerVertical">
+            <div class="container">
                 <a href="/<?php echo $categoriaPrincipal->slug; ?>">
                     <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
                         <?php echo $categoriaPrincipal->nombre; ?>

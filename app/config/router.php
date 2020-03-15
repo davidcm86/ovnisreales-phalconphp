@@ -34,7 +34,7 @@ $router->add(
     [
         'controller'        => 'categorias',
         'action'            => 'listar',
-        'categorias'        => 1
+        'categoriaSlug'     => 1
     ]
 );
 

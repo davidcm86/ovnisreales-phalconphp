@@ -8,6 +8,11 @@
         <meta name="description" content="<?php echo $descriptionSeo; ?>">
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
         <?php $this->assets->outputCss('localCss'); ?>
+        <?php if (isset($jsonld)) { ?>
+            <script type="application/ld+json">
+                <?php echo $jsonld; ?>
+            </script>
+        <?php } ?>
     </head>
     <body>
         <div class="container-medium">

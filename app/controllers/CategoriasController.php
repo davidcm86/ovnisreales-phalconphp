@@ -10,12 +10,11 @@ class CategoriasController extends ControllerBase
     public function listarAction()
     {
         $this->logger->info('mipox');
-        //$categoriasPrincipales = Categorias::find(["conditions" => "pais = '" . DOMINIO_SELECT . "'"]);
         $categoriaSlug = $this->dispatcher->getParam('categoriaSlug');
-        $this->logger->info('$categoriaSlug: ' . $categoriaSlug);
-        $this->view->categoriasPrincipales = $categoriasPrincipales;
-        $this->view->titleSeo = 'Ovnis reales';
-        $this->view->descriptionSeo = 'Ovnis reales';
+        $categoria = Categorias::findFirst(["conditions" => "pais = '" . DOMINIO_SELECT . "' AND slug = '" . $categoriaSlug . "'"]);
+        $this->view->categoriaSlug = $categoriaSlug;
+        $this->view->titleSeo = $categoria->title_seo;
+        $this->view->descriptionSeo = $categoria->description_seo;
     }
 
 }

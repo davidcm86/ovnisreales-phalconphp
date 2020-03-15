@@ -23,7 +23,7 @@ class ProcesosController extends ControllerBase
             foreach($arrTabla as $item) {
                 //$normal[$idioma][$item['id']]['nombre'] = $item['nombre'];
                 //$normal[$idioma][$item['id']]['slug'] = $item['slug'];
-                $normal['es'][$item['slug']] = $item['id'];
+                $normal[$idioma][$item['slug']] = $item['id'];
             }
             $fich=fopen(RUTA_ARRAYS . 'Categorias-'.$idioma.'.ini.php','w');
             fwrite($fich,json_encode($normal));

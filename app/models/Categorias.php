@@ -36,6 +36,24 @@ class Categorias extends \Phalcon\Mvc\Model
     public $imagen;
 
     /**
+     *
+     * @var string
+     */
+    public $title_seo;
+
+    /**
+     *
+     * @var string
+     */
+    public $description_seo;
+
+    /**
+     *
+     * @var string
+     */
+    public $descripcion_secundaria;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
