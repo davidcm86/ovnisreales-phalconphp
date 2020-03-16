@@ -14,6 +14,8 @@ use Phalcon\Breadcrumbs;
 use Phalcon\Cache\Frontend\Data as FrontendData;
 use Phalcon\Cache\Backend\Memcache as BackendMemcache;
 
+use Ovnisreales\Utils\Truncate;
+
 // Set the models cache service
 $di->set(
     'modelsCache',
@@ -88,6 +90,16 @@ $di->setShared('view', function () {
 });
 
 /**
+ * Inicio librerias
+ */
+$di->set('Truncate', function () {
+    return new Truncate();
+});
+ /**
+  * Fin librerias
+  */
+
+/**
  * Database connection is created based in the parameters defined in the configuration file
  */
 $di->setShared('db', function () {
@@ -139,6 +151,7 @@ $di->setShared('session', function () {
     $session->start();
     return $session;
 });
+
 
 $dispatcher    = new \Phalcon\Mvc\Dispatcher();
 $eventsManager = new \Phalcon\Events\Manager();

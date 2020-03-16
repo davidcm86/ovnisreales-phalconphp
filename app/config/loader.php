@@ -22,6 +22,7 @@ $loader
         [
             'Ovnisreales\Controllers' => $config->application->controllersDir,
             'Ovnisreales\Models' => $config->application->modelsDir,
+            'Ovnisreales' => $config->application->libraryDir,
         ]
     );
 

@@ -1,0 +1,29 @@
+<div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+    <h1><?php echo $categoria->nombre; ?></h1>
+</div>
+<div class="row">
+    <?php foreach ($productos as $producto) { ?>
+        <div class="col-sm-4 aligner aligner--centerHoritzontal aligner--centerVertical">
+            <div class="container">
+                <a target="_blank" href="<?php echo $producto->enlace; ?>">
+                    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+                        <?php echo $this->Truncate->truncar(strip_tags($producto->nombre_producto), 75); ?>
+                    </div>
+                    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+                        <?php echo $this->tag->image(
+                            [
+                                $producto->imagen,
+                                'alt' => $producto->nombre_producto,
+                                'title' => $producto->nombre_producto
+                                ]
+                            );
+                        ?>
+                    </div>
+                </a>
+                <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
+                    <p><?php echo $producto->precio; ?>&nbsp;<?php echo $producto->TipoMonedas->tipo; ?></p>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+</div>
