@@ -13,6 +13,7 @@ class CategoriasController extends ControllerBase
         $categoriaSlug = $this->dispatcher->getParam('categoriaSlug');
         $categoria = Categorias::findFirst(["conditions" => "pais = '" . DOMINIO_SELECT . "' AND slug = '" . $categoriaSlug . "'"]);
         $this->view->categoria = $categoria;
+        // TODO: breadcrumbs
         $productos = Productos::find(["conditions" => "categoria_id = " . $categoria->id]);
         $this->view->productos = $productos;
         $this->view->titleSeo = $categoria->title_seo;

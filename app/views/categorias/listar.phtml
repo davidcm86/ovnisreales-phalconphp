@@ -20,8 +20,29 @@
                         ?>
                     </div>
                 </a>
-                <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-                    <p><?php echo $producto->precio; ?>&nbsp;<?php echo $producto->TipoMonedas->tipo; ?></p>
+                <div class="container">
+                    <div class="row">
+                            <div class="col aligner aligner--contentEnd">
+                                <?php if ($producto->es_rebajado == 1) { ?>
+                                    <ul>
+                                        <li class="tag">
+                                            <a href="#">Rebajado</a>
+                                        </li>
+                                    </ul>
+                                <?php } ?>
+                            </div>
+                            <div class="col aligner aligner--contentEnd">
+                                <?php if ($producto->TipoMonedas->id == 1) { ?>
+                                    <ul>
+                                        <li class="badge"><?php echo $producto->precio; ?>&nbsp;<?php echo $producto->TipoMonedas->tipo; ?></li>
+                                    </ul>
+                                <?php } else { ?>
+                                    <ul>
+                                        <li class="badge"><?php echo $producto->TipoMonedas->tipo; ?>&nbsp;<?php echo $producto->precio; ?></li>
+                                    </ul>
+                                <?php } ?>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>

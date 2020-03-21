@@ -75,7 +75,7 @@ li {
  *  BACKGROUND
  */
 .bg-primary {
-  background-color: #55FF33;
+  background-color: #222333;
 }
 .bg-dark {
   background-color: #18232f;
@@ -360,14 +360,14 @@ body {
 }
 
 a {
-  color: #55FF33;
+  color: #222333;
   text-decoration: none;
 }
 a:hover {
-  color: rgba(85, 255, 51, 0.8);
+  color: rgba(34, 35, 51, 0.8);
 }
 a:focus {
-  color: #55FF33;
+  color: #222333;
 }
 
 .text-huge, .text-big, .text-medium {
@@ -395,7 +395,7 @@ a:focus {
 }
 
 .text-primary {
-  color: #55FF33;
+  color: #222333;
 }
 .text-dark {
   color: #18232f;
@@ -505,7 +505,7 @@ h4 {
   font-size: 0.7em;
 }
 .badge--primary {
-  background-color: #55FF33;
+  background-color: #222333;
   color: #fff;
 }
 .badge--secondary {
@@ -550,7 +550,7 @@ button {
 }
 
 .button {
-  background-color: #55FF33;
+  background-color: #222333;
   border: 0;
   border-radius: 200px;
   color: #fff;
@@ -571,7 +571,7 @@ button {
   color: #fff;
 }
 .button:hover {
-  background-color: rgba(85, 255, 51, 0.8);
+  background-color: rgba(34, 35, 51, 0.8);
   color: #fff;
   cursor: pointer;
   text-decoration: none;
@@ -610,11 +610,11 @@ button {
 }
 .button--white {
   background-color: #fff;
-  color: #55FF33;
+  color: #222333;
 }
 .button--white:hover {
   background-color: rgba(255, 255, 255, 0.8);
-  color: rgba(85, 255, 51, 0.8);
+  color: rgba(34, 35, 51, 0.8);
 }
 .button--green {
   background-color: #4caf50;
@@ -634,11 +634,11 @@ button {
 }
 .button--transparent {
   background-color: transparent;
-  color: #55FF33;
+  color: #222333;
 }
 .button--transparent:active, .button--transparent:hover, .button--transparent:focus {
   background-color: transparent;
-  color: rgba(85, 255, 51, 0.8);
+  color: rgba(34, 35, 51, 0.8);
   opacity: 0.8;
 }
 .button--outlined {
@@ -759,7 +759,7 @@ input:-webkit-autofill {
   display: none;
 }
 .select::after, .select::before {
-  background: #55FF33;
+  background: #222333;
   content: "";
   display: block;
   height: 2px;
@@ -843,8 +843,8 @@ input:-webkit-autofill {
   width: 20px;
 }
 .checkbox input[type=checkbox] + label::after {
-  border-bottom: 3px solid #55FF33;
-  border-right: 3px solid #55FF33;
+  border-bottom: 3px solid #222333;
+  border-right: 3px solid #222333;
   display: block;
   height: 12px;
   left: 11px;
@@ -889,7 +889,7 @@ input:-webkit-autofill {
   width: 20px;
 }
 .radio input[type=radio] + label::after {
-  background-color: #55FF33;
+  background-color: #222333;
   border-radius: 20px;
   display: block;
   height: 10px;
@@ -1021,7 +1021,7 @@ input:-webkit-autofill {
 }
 .loadingBar::before {
   animation: loading 2s linear infinite;
-  background-color: #55FF33;
+  background-color: #222333;
   content: "";
   display: block;
   height: 6px;
@@ -1191,7 +1191,7 @@ input:-webkit-autofill {
   margin-bottom: 0;
 }
 .notification--primary {
-  background-color: #55FF33;
+  background-color: #222333;
 }
 .notification--dark {
   background-color: #18232f;
@@ -1256,7 +1256,7 @@ input:-webkit-autofill {
   padding: 8px 16px;
 }
 .paginator-itemLink.is-active {
-  background-color: #55FF33;
+  background-color: #222333;
   color: #fff;
   cursor: default;
 }
@@ -1405,12 +1405,12 @@ input:-webkit-autofill {
   position: relative;
 }
 .tabs-item:hover {
-  color: #55FF33;
+  color: #222333;
   text-decoration: none;
 }
 .tabs-item.is-selected {
-  border-bottom: 3px solid #55FF33;
-  color: #55FF33;
+  border-bottom: 3px solid #222333;
+  color: #222333;
 }
 
 /**
