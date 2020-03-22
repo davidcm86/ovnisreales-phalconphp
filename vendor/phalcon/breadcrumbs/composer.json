@@ -1,0 +1,41 @@
+{
+    "name": "sergeyklay/breadcrumbs",
+    "type": "library",
+    "description": "Powerful and flexible component for building site breadcrumbs in Phalcon 2+.",
+    "keywords": [
+        "phalcon",
+        "breadcrumbs",
+        "crumbs"
+    ],
+    "homepage": "https://github.com/sergeyklay/breadcrumbs",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Serghei Iakovlev",
+            "email": "serghei@phalcon.io"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/sergeyklay/breadcrumbs/graphs/contributors"
+        }
+    ],
+    "require": {
+        "php": ">= 5.5 <8.0",
+        "ext-phalcon": ">=2.0 <4.0"
+    },
+    "conflict": {
+        "phalcon/breadcrumbs": "*"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Phalcon\\": "src/"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/sergeyklay/breadcrumbs/issues",
+        "forum": "https://forum.phalcon.io/",
+        "source": "https://github.com/phalcon/sergeyklay"
+    }
+}

@@ -95,6 +95,9 @@ $di->setShared('view', function () {
 $di->set('Truncate', function () {
     return new Truncate();
 });
+$di->setShared('Breadcrumbs', function () {
+    return new Breadcrumbs;
+});
  /**
   * Fin librerias
   */

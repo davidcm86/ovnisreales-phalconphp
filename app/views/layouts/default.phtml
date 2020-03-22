@@ -13,6 +13,11 @@
                 <?php echo $jsonld; ?>
             </script>
         <?php } ?>
+        <?php if (isset($jsonldBreadCrumbs)) { ?>
+            <script type="application/ld+json">
+                <?php echo $jsonldBreadCrumbs; ?>
+            </script>
+        <?php } ?>
     </head>
     <body>
         <div class="container-medium">

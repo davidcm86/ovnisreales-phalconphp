@@ -6,7 +6,6 @@
 defined('BASE_PATH') || define('BASE_PATH', getenv('BASE_PATH') ?: realpath(dirname(__FILE__) . '/../..'));
 defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 
-
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
@@ -26,8 +25,8 @@ return new \Phalcon\Config([
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
         'logPath'        => BASE_PATH . '/tmp/logs/error.log',
-        'vendorDir'      => APP_PATH . '/vendor/',
         'formsDir'       => APP_PATH . '/formsValidations/',
+        'vendorDir'      => BASE_PATH . '/vendor/'
         // This allows the baseUri to be understand project paths that are not in the root directory
         // of the webpspace.  This will break if the public/index.php entry point is moved or
         // possibly if the web server rewrite rules are changed. This can also be set to a static path.

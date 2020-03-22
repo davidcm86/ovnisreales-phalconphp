@@ -10,7 +10,7 @@ $loader->registerDirs(
         $config->application->controllersDir,
         $config->application->modelsDir,
         $config->application->pluginsDir,
-        $config->application->formsDir,
+        $config->application->formsDir
     ]
 );
 
@@ -22,13 +22,15 @@ $loader
         [
             'Ovnisreales\Controllers' => $config->application->controllersDir,
             'Ovnisreales\Models' => $config->application->modelsDir,
-            'Ovnisreales' => $config->application->libraryDir,
+            'Ovnisreales\Vendor' => $config->application->vendorDir,
+            'Ovnisreales' => $config->application->libraryDir
         ]
     );
 
-if (file_exists(BASE_PATH . '/app/vendor/autoload.php')) {    
-    require_once BASE_PATH . '/app/vendor/autoload.php';
+if (file_exists(BASE_PATH . '/vendor/autoload.php')) {
+    require_once BASE_PATH . '/vendor/autoload.php';
 }
+
 /**
  * Register the custom loader (if any)
  */

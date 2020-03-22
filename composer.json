@@ -1,0 +1,7 @@
+{
+	"require": {
+		"phalcon/breadcrumbs": "^1.4",
+		"digitalbazaar/json-ld": "*",
+		"zaininnari/html-minifier": "*"
+	}
+}
