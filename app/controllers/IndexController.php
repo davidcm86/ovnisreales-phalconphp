@@ -8,7 +8,11 @@ class IndexController extends ControllerBase
 {
     public function indexAction()
     {
-        $categoriasPrincipales = Categorias::find(["conditions" => "pais = '" . DOMINIO_SELECT . "'"]);
+        $categoriasPrincipales = $this->modelsCache->get('categorias-principales-' . DOMINIO_SELECT);
+        if (empty($categoriasPrincipales)) {
+            $categoriasPrincipales = Categorias::find(["conditions" => "pais = '" . DOMINIO_SELECT . "'"]);
+            $this->modelsCache->save('categorias-principales-' . DOMINIO_SELECT, $categoriasPrincipales);
+        }
         $this->view->categoriasPrincipales = $categoriasPrincipales;
         $this->view->titleSeo = 'Tienda online de artículos de ovnis y extraterrestres | OVNIS REALES';
         $this->view->descriptionSeo = 'Tienda online de artículos de ovnis reales y extraterrestres. Camisetas, tazas, ropa...';

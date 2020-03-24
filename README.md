@@ -1,0 +1,1 @@
+0 /24 * * cd /var/www/html/ovnisreales && php7.2 app/cli.php Productos rebajas # poner en oferta cada 24 productos al azar
