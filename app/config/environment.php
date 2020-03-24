@@ -12,10 +12,12 @@
                 case 'mx.ovnisreales.loc':
                     defined('DOMINIO') || define('DOMINIO', 'https://www.mx.ovnisreales.loc');
                     defined('DOMINIO_SELECT') || define('DOMINIO_SELECT', 'mx');
+                    defined('IDIOMA') || define('IDIOMA', 'mx-MX');
                     break;
                 case 'es.ovnisreales.loc':
                     defined('DOMINIO') || define('DOMINIO', 'https://www.es.ovnisreales.loc');
                     defined('DOMINIO_SELECT') || define('DOMINIO_SELECT', 'es');
+                    defined('IDIOMA') || define('IDIOMA', 'es-ES');
                     break;
                 case 'ovnisreales.loc':
                     //  TODO: mirar la ip para ver de donde es, si no hay mandarle a mx. Ver como puedo hacer esto beautify. Parece q no me dija functions aqui

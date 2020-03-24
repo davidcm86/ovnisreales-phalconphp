@@ -7,6 +7,7 @@
         <title><?php echo $titleSeo; ?></title>
         <meta name="description" content="<?php echo $descriptionSeo; ?>">
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
+        <link rel="alternate" href="<?php echo DOMINIO . $this->router->getRewriteUri(); ?>" hreflang="<?php echo IDIOMA; ?>" />
         <?php $this->assets->outputCss('localCss'); ?>
         <?php if (isset($jsonld)) { ?>
             <script type="application/ld+json">
