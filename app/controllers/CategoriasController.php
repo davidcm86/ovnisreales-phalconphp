@@ -4,12 +4,16 @@ namespace Ovnisreales\Controllers;
 
 use Ovnisreales\Models\Productos;
 use Ovnisreales\Models\Categorias;
+use Ovnisreales\Models\EstadisticaProductos;
+
+use Phalcon\Http\Request;
 
 class CategoriasController extends ControllerBase
 {
 
     public function listarAction()
     {
+        $this->assets->addJs('js/productos.js');
         $categoriaSlug = $this->dispatcher->getParam('categoriaSlug');
         $categoria = $this->modelsCache->get('categorias-listado-' . DOMINIO_SELECT);
         if (empty($categoria)) {
@@ -69,6 +73,18 @@ class CategoriasController extends ControllerBase
         );
 
         $this->view->jsonld = json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    }
+
+    /**
+     * Guardamos la cantidad de veces que hacen clicks en los productos
+     */
+    public function estadisticaProductoAjaxAction()
+    {
+        $this->view->disable();
+        $this->view->setTemplateAfter('vacio');
+        $request = new Request();
+        $idProducto = $request->getPut('idProducto');
+        if (!empty($idProducto)) EstadisticaProductos::saveEstadistica($idProducto, date('m'), date('Y'));
     }
 
 }

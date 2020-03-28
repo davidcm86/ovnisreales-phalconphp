@@ -72,6 +72,13 @@ class Productos extends \Phalcon\Mvc\Model
     public $categoria_id;
 
     /**
+     *
+     * @var integer
+     */
+    public $imagen_tratada;
+    
+
+    /**
      * Initialize method for model.
      */
     public function initialize()

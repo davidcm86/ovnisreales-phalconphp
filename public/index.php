@@ -43,8 +43,7 @@ try {
     echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
 
 } catch (\Exception $e) {
-    echo get_class($e), ': ', $e->getMessage(), '\n';
-    echo ' File=', $e->getFile(), '\n';
-    echo ' Line=', $e->getLine(), '\n';
-    echo $e->getTraceAsString();
+    $logger = new \Phalcon\Logger\Adapter\File(BASE_PATH . '/tmp/logs/error.log');
+    $message = get_class($e) . ": " . $e->getMessage() . "\n" . " File=" . $e->getFile() . "\n" . " Line=" . $e->getLine() . "\n" . $e->getTraceAsString() . "\n";
+    $logger->critical($message);
 }

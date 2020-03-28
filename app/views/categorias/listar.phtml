@@ -9,7 +9,7 @@
     <?php foreach ($productos as $producto) { ?>
         <div class="col-sm-4 aligner aligner--centerHoritzontal aligner--centerVertical">
             <div class="container">
-                <a target="_blank" href="<?php echo $producto->enlace; ?>">
+                <a class="producto-amazon" onclick="estadisticaProducto(<?php echo $producto->id; ?>)" target="_blank" href="<?php echo $producto->enlace; ?>">
                     <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
                         <?php echo $this->Truncate->truncar(strip_tags($producto->nombre_producto), 75); ?>
                     </div>

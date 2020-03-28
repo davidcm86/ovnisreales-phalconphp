@@ -17,13 +17,13 @@ use Phalcon\Cache\Backend\Memcache as BackendMemcache;
 use Ovnisreales\Utils\Truncate;
 
 // Set the models cache service
-$di->set(
+$di->setShared(
     'modelsCache',
     function () {
         // Cache data for one day (default setting)
         $frontCache = new FrontendData(
             [
-                'lifetime' => 86400,
+                'lifetime' => 43200,
             ]
         );
         // Memcached connection settings
@@ -31,7 +31,7 @@ $di->set(
             $frontCache,
             [
                 'host' => 'localhost',
-                'port' => '11211',
+                'port' => '11211'
             ]
         );
         return $cache;
