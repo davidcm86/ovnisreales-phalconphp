@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col-md-3 col-sm-4 col-7">
+		<?php
+			echo $this->tag->image(
+			    [
+			       '/img/common/logo-ovnis-reales.svg',
+			       'alt' => 'Ovnis Reales Logo',
+			       'class' => 'img-fluid'
+			    ]
+			);
+		?>
+	</div>
+	<div class="col-md-9 col-sm-8 col-12">
+		<?php if (isset($usuarioAdmin) && !empty($usuarioAdmin)) { ?>
+			<span style="margin-right:20px"><?php echo 'Hola David'; ?></span>
+			<a href="/admin/usuarios/logoutAdmin" class="">Desconectar</a>
+		<?php } ?>
+	</div>
+</div>
+

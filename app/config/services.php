@@ -14,7 +14,7 @@ use Phalcon\Breadcrumbs;
 use Phalcon\Cache\Frontend\Data as FrontendData;
 use Phalcon\Cache\Backend\Memcache as BackendMemcache;
 
-use Ovnisreales\Utils\Truncate;
+use OvnisReales\Utils\Truncate;
 
 // Set the models cache service
 $di->setShared(
@@ -101,6 +101,19 @@ $di->setShared('Breadcrumbs', function () {
  /**
   * Fin librerias
   */
+
+/**
+ * Inicio plugins
+ */
+$di->set(
+    'AuthPlugin',
+    function() {
+        $AuthPlugin = new AuthPlugin;
+        return $AuthPlugin;
+});
+/**
+ * Fin plugins
+ */
 
 /**
  * Database connection is created based in the parameters defined in the configuration file
@@ -236,5 +249,5 @@ $eventsManager->attach("dispatch", function ($event, $dispatcher, $exception) us
     });
 
 $dispatcher->setEventsManager($eventsManager);
-$dispatcher->setDefaultNamespace('Ovnisreales\Controllers');
+$dispatcher->setDefaultNamespace('OvnisReales\Controllers');
 $di->setShared('dispatcher', $dispatcher);

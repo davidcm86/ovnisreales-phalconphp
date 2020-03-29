@@ -2,7 +2,7 @@
 
 namespace OvnisReales\Models;
 
-class Categorias extends \Phalcon\Mvc\Model
+class Usuarios extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -15,49 +15,14 @@ class Categorias extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $nombre;
+    public $email;
 
     /**
      *
      * @var string
      */
-    public $slug;
+    public $password;
 
-    /**
-     *
-     * @var string
-     */
-    public $pais;
-
-    /**
-     *
-     * @var string
-     */
-    public $imagen;
-
-    /**
-     *
-     * @var string
-     */
-    public $title_seo;
-
-    /**
-     *
-     * @var string
-     */
-    public $description_seo;
-
-    /**
-     *
-     * @var string
-     */
-    public $descripcion_principal;
-
-    /**
-     *
-     * @var string
-     */
-    public $descripcion_secundaria;
 
     /**
      * Initialize method for model.
@@ -65,7 +30,7 @@ class Categorias extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("ovnisreales");
-        $this->setSource("categorias");
+        $this->setSource("usuarios");
     }
 
     /**
@@ -75,14 +40,14 @@ class Categorias extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'categorias';
+        return 'usuarios';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Categorias[]|Categorias|\Phalcon\Mvc\Model\ResultSetInterface
+     * @return Usuarios[]|Usuarios|\Phalcon\Mvc\Model\ResultSetInterface
      */
     public static function find($parameters = null)
     {
@@ -93,11 +58,10 @@ class Categorias extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Categorias|\Phalcon\Mvc\Model\ResultInterface
+     * @return Usuarios|\Phalcon\Mvc\Model\ResultInterface
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
     }
-
 }

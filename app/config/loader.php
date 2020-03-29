@@ -20,10 +20,11 @@ $loader->registerDirs(
 $loader
     ->registerNamespaces(
         [
-            'Ovnisreales\Controllers' => $config->application->controllersDir,
-            'Ovnisreales\Models' => $config->application->modelsDir,
-            'Ovnisreales\Vendor' => $config->application->vendorDir,
-            'Ovnisreales' => $config->application->libraryDir
+            'OvnisReales\Controllers' => $config->application->controllersDir,
+            'OvnisReales\Controllers\Admin' => $config->application->controllersDirAdmin,
+            'OvnisReales\Models' => $config->application->modelsDir,
+            'OvnisReales\Vendor' => $config->application->vendorDir,
+            'OvnisReales' => $config->application->libraryDir
         ]
     );
 

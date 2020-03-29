@@ -1,6 +1,6 @@
 <?php
 
-namespace Ovnisreales\Utils;
+namespace OvnisReales\Utils;
 
 use Transliterator;
 

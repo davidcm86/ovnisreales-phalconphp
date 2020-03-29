@@ -1,1 +1,1 @@
-{"es":{"tazas-de-ovnis-y-extraterrestres":"1","camisetas-de-ovnis-y-extraterrestres":"3","libros-de-ovnis-y-extraterrestres":"5"}}
+{"es":{"tazas-de-ovnis-y-extraterrestres":"1","camisetas-de-ovnis-y-extraterrestres":"3","libros-de-ovnis-y-extraterrestres":"5","cuadros-de-ovnis-y-extraterrestres":"7"}}

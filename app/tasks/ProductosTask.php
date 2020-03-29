@@ -11,7 +11,7 @@ class ProductosTask extends Task
     {
         $idiomas = ['es', 'mx'];
         foreach ($idiomas as $idioma) {
-            $phql = 'SELECT * FROM Ovnisreales\Models\Productos as Productos 
+            $phql = 'SELECT * FROM OvnisReales\Models\Productos as Productos 
             WHERE Productos.activo = 1';
             $manager = $this->modelsManager;
             $productos = $manager->executeQuery($phql);

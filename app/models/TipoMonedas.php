@@ -1,6 +1,6 @@
 <?php
 
-namespace Ovnisreales\Models;
+namespace OvnisReales\Models;
 
 class TipoMonedas extends \Phalcon\Mvc\Model
 {

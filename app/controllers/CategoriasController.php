@@ -1,10 +1,10 @@
 <?php
 
-namespace Ovnisreales\Controllers;
+namespace OvnisReales\Controllers;
 
-use Ovnisreales\Models\Productos;
-use Ovnisreales\Models\Categorias;
-use Ovnisreales\Models\EstadisticaProductos;
+use OvnisReales\Models\Productos;
+use OvnisReales\Models\Categorias;
+use OvnisReales\Models\EstadisticaProductos;
 
 use Phalcon\Http\Request;
 

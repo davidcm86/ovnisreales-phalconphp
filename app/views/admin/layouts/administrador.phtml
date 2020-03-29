@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>OvnisReales BackEnd</title>
+        <?php $this->assets->outputCss(); ?>
+        <link rel="shortcut icon" href="/img/favicon.png" type="image/png" />
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <?php echo $this->view->partial('partials/nav-logo'); ?>
+                <?php 
+                     if ($this->session->has('UsuarioAdmin')) echo $this->view->partial('partials/menu-privado', ['usuario' => $this->session->get('UsuarioAdmin')]);
+                ?>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <?php echo $this->getContent(); ?>
+            </div>
+        </main>
+    </body>
+    <?php $this->assets->outputJs(); ?>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</html>

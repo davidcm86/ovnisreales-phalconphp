@@ -28,7 +28,7 @@ $loader->registerDirs(
 $loader
     ->registerNamespaces(
         [
-        'Ovnisreales\Models' =>  __DIR__ . '/models/'
+        'OvnisReales\Models' =>  __DIR__ . '/models/'
         ]
     )->register();
 

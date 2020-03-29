@@ -20,7 +20,6 @@
                     defined('IDIOMA') || define('IDIOMA', 'es-ES');
                     break;
                 case 'ovnisreales.loc':
-                    //  TODO: mirar la ip para ver de donde es, si no hay mandarle a mx. Ver como puedo hacer esto beautify. Parece q no me dija functions aqui
                     if (ENVIRONMENT == 'development') {
                         $ip = '2.141.83.233';
                     } else {

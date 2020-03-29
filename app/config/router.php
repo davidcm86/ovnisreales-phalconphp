@@ -1,9 +1,19 @@
 <?php
 
-$router = $di->getRouter();
 use Phalcon\Cache\Frontend\Data as FrontendData;
 use Phalcon\Cache\Backend\Memcache as BackendMemcache;
 
+$router = $di->getRouter();
+$router->add('/admin/:controller/:action/:params', [
+    'namespace'  => 'OvnisReales\Controllers\Admin',
+    'controller' => 1,
+    'action'     => 2,
+    'params'     => 3,
+]);
+$router->add('/admin/:controller', [
+    'namespace'  => 'OvnisReales\Controllers\Admin',
+    'controller' => 1
+]);
 $frontCache = new FrontendData(
     [
         'lifetime' => 86400
@@ -37,5 +47,4 @@ $router->add(
         'categoriaSlug'     => 1
     ]
 );
-
 $router->handle();

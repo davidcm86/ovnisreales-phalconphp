@@ -1,5 +1,5 @@
 <?php
-namespace Ovnisreales\Controllers;
+namespace OvnisReales\Controllers;
 
 class ProcesosController extends ControllerBase
 {
@@ -18,7 +18,7 @@ class ProcesosController extends ControllerBase
         $idiomas = ['es', 'mx'];
         foreach ($idiomas as $idioma) {
             $normal = [];
-            $query = $this->modelsManager->createQuery('SELECT * FROM Ovnisreales\Models\Categorias WHERE pais = "' . $idioma .'"');
+            $query = $this->modelsManager->createQuery('SELECT * FROM OvnisReales\Models\Categorias WHERE pais = "' . $idioma .'"');
             $arrTabla  = $query->execute()->toArray();
             foreach($arrTabla as $item) {
                 //$normal[$idioma][$item['id']]['nombre'] = $item['nombre'];

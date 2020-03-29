@@ -1,8 +1,8 @@
 <?php
 
-namespace Ovnisreales\Controllers;
+namespace OvnisReales\Controllers;
 
-use Ovnisreales\Models\Categorias;
+use OvnisReales\Models\Categorias;
 
 class IndexController extends ControllerBase
 {

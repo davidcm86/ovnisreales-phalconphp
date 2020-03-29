@@ -1,0 +1,24 @@
+<div class="login">
+    <h1>Zona privada OvnisReales</h1>
+    <div class="login-box">
+        <?= $this->tag->form('admin/usuarios/login') ?>
+            <div class="form-group">
+                <?= $this->tag->textField(['email', 'placeholder' => 'Email', "class" => "form-control"]) ?>
+            </div>
+            <div class="form-group">
+                <?= $this->tag->passwordField(['password', 'placeholder' => 'Contraseña', "class" => "form-control"]) ?>
+            </div>
+            <?= $this->tag->submitButton('Login') ?>
+        <?= $this->tag->endForm() ?>
+
+        <?php
+            if (!empty($result['errores'])) {
+                echo '</br><p class="error">';
+                foreach ($result['errores'] as $error) {
+                    echo $error . '</br>';
+                }
+                echo '</p>';
+            }
+        ?>
+    </div>
+</div>

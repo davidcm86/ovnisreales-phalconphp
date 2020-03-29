@@ -1,6 +1,6 @@
 <?php
 
-namespace Ovnisreales\Controllers;
+namespace OvnisReales\Controllers;
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 

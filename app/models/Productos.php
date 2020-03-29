@@ -1,6 +1,6 @@
 <?php
 
-namespace Ovnisreales\Models;
+namespace OvnisReales\Models;
 
 class Productos extends \Phalcon\Mvc\Model
 {
@@ -85,7 +85,7 @@ class Productos extends \Phalcon\Mvc\Model
     {
         $this->setSchema("ovnisreales");
         $this->setSource("productos");
-        $this->belongsTo('tipo_moneda_id', 'Ovnisreales\Models\TipoMonedas', 'id', ['alias' => 'TipoMonedas']);
+        $this->belongsTo('tipo_moneda_id', 'OvnisReales\Models\TipoMonedas', 'id', ['alias' => 'TipoMonedas']);
     }
 
     /**
