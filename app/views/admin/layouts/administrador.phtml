@@ -19,6 +19,7 @@
         </header>
         <main>
             <div class="container">
+                <?php echo $this->flashSession->output(); ?>
                 <?php echo $this->getContent(); ?>
             </div>
         </main>

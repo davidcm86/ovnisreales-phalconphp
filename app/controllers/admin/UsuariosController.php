@@ -15,12 +15,12 @@ class UsuariosController extends ControllerBase
             if ($this->request->isPost()) {
                 $result = $this->AuthPlugin->loginAdmin($this->request->getPost());
                 if (empty($result['errores'])) {
-                    return $this->response->redirect('/admin/usuarios');
+                    return $this->response->redirect('/admin/videosFacebook');
                 }
                 $this->view->result = $result;
             }
         } else {
-            return $this->response->redirect('/admin/usuarios');
+            return $this->response->redirect('/admin/videosFacebook');
         }
     }
 

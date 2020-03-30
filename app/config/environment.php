@@ -1,5 +1,6 @@
 <?php
     define('ENVIRONMENT', isset($_SERVER['APPLICATION_ENV']) ? $_SERVER['APPLICATION_ENV'] : 'development');
+    defined(SALT) || define(SALT, 'dj587hfm0n2f56n072dm892');
     $variableEntorno = (ENVIRONMENT == 'development') ? 1 : -1;
     if (ENVIRONMENT == 'development') {
         defined('RUTA_ARRAYS') || define('RUTA_ARRAYS', APP_PATH . '/config/arrays/');

@@ -1,0 +1,63 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-8">
+        <h1>Crear video</h1>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-4 textright">
+        <?php echo $this->tag->linkTo(["admin/redactores", "Atrás", "class" => "btn"]) ?>
+    </div>
+</div>
+
+<?php echo $this->getContent(); ?>
+
+<?php if (isset($messagesError) && !empty($messagesError)) { ?>
+    <div class="alert alert-success">
+        <?php foreach ($messagesError as $mensage) { ?>
+            <?php echo $mensage; ?>
+        <?php } ?>
+    </div>
+<?php } ?>
+
+<?php
+    echo $this->tag->form(
+        [
+            "admin/videosfacebook/crear",
+            "autocomplete" => "off",
+            "class" => "form-row",
+            "method" => "post",
+            "enctype" => "multipart/form-data"
+        ]
+    );
+?>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group">
+        <label for="fieldFacebookId">Facebook id</label>
+        <?php echo $this->tag->textField(["facebook_id", "class" => "form-control", "id" => "fieldFacebookId", "required" => true]) ?>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group">
+        <label for="fieldTitulo">Título</label>
+        <?php echo $this->tag->textField(["titulo", "class" => "form-control", "id" => "fieldTitulo", "required" => true]) ?>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group">
+        <label for="fieldDescripcion">Descripción</label>
+        <?php echo $this->tag->textArea(["descripcion", "class" => "form-control", "id" => "fieldDescripcion"]) ?>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12 textcenter">
+    <?php echo $this->tag->submitButton(["Crear", "class" => "btn btn-default"]) ?>
+</div>
+
+<?php echo $this->tag->endForm(); ?>
