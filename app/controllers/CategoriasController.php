@@ -22,11 +22,11 @@ class CategoriasController extends ControllerBase
         }
         $this->view->categoria = $categoria;
 
-        $productos = $this->modelsCache->get('categorias-productos-' . DOMINIO_SELECT);
-        if (empty($productos)) {
+        //$productos = $this->modelsCache->get('categorias-productos-' . DOMINIO_SELECT);
+        //if (empty($productos)) {
             $productos = Productos::find(["conditions" => "categoria_id = " . $categoria->id]);
             $this->modelsCache->save('categorias-productos-' . DOMINIO_SELECT, $productos);
-        }
+        //}
         $this->view->productos = $productos;
 
         $this->view->titleSeo = $categoria->title_seo;
