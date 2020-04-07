@@ -1,0 +1,19 @@
+<div>
+	<h1>Videos de Ovnis Reales <?php echo $h1Pagina; ?></h1>
+</div>
+<?php if ($page->total_items != 0) { ?>
+	<?php foreach ($page->items as $video): ?>
+		<h2><?php echo $video->titulo; ?></h2>
+		<div class="fb-video" data-href="https://www.facebook.com/facebook/videos/<?php echo $video->facebook_id; ?>/" data-width="800" data-show-text="false"></div>
+	<?php endforeach; ?>
+<?php } ?>
+</div>
+<div class="paginacion">
+	<p><?php echo $page->current, "/", $page->total_pages ?></p>
+	<ul>
+		<li><?php echo $this->tag->linkTo("/videos/listado", "Primero") ?></li>
+		<li><?php echo $this->tag->linkTo("/videos/listado?page=" . $page->before, "Anterior") ?></li>
+		<li><?php echo $this->tag->linkTo("/videos/listado?page=" . $page->next, "Siguiente") ?></li>
+		<li><?php echo $this->tag->linkTo("/videos/listado?page=" . $page->last, "Último") ?></li>
+	</ul>
+</div>

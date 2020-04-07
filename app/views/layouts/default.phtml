@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title><?php echo $titleSeo; ?></title>
-        <meta name="description" content="<?php echo $descriptionSeo; ?>">
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
-        <link rel="alternate" href="<?php echo DOMINIO . $this->router->getRewriteUri(); ?>" hreflang="<?php echo IDIOMA; ?>" />
-        <?php $this->assets->outputCss('localCss'); ?>
-        <?php if (isset($jsonld)) { ?>
-            <script type="application/ld+json">
-                <?php echo $jsonld; ?>
-            </script>
-        <?php } ?>
-        <?php if (isset($jsonldBreadCrumbs)) { ?>
-            <script type="application/ld+json">
-                <?php echo $jsonldBreadCrumbs; ?>
-            </script>
-        <?php } ?>
-    </head>
-    <body>
-        <div class="container-medium">
-            <?php echo $this->view->partial('partials/header'); ?>
-            <?php echo $this->getContent(); ?>
-        </div>
-    </body>
-    <?php $this->assets->outputJs(); ?>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title><?php echo $titleSeo . ' | OVNIS REALES'; ?></title>
+		<meta name="description" content="<?php echo $descriptionSeo; ?>">
+		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
+		<link rel="alternate" href="<?php echo DOMINIO . $this->router->getRewriteUri(); ?>" hreflang="<?php echo IDIOMA; ?>" />
+		<?php $this->assets->outputCss('localCss'); ?>
+		<?php if (isset($jsonld)) { ?>
+			<script type="application/ld+json">
+				<?php echo $jsonld; ?>
+			</script>
+		<?php } ?>
+		<?php if (isset($jsonldBreadCrumbs)) { ?>
+			<script type="application/ld+json">
+				<?php echo $jsonldBreadCrumbs; ?>
+			</script>
+		<?php } ?>
+	</head>
+	<body>
+		<div class="container-medium">
+			<?php echo $this->view->partial('partials/header'); ?>
+			<?php echo $this->getContent(); ?>
+		</div>
+	</body>
+	<?php if ($this->router->getControllerName() == "videos") { ?>
+		<script async defer src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v3.2"></script>
+	<?php } ?>
+	<?php $this->assets->outputJs(); ?>
 </html>
