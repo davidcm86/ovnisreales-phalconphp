@@ -15,6 +15,7 @@ use Phalcon\Cache\Frontend\Data as FrontendData;
 use Phalcon\Cache\Backend\Memcache as BackendMemcache;
 
 use OvnisReales\Utils\Truncate;
+use OvnisReales\Utils\Slug;
 
 // Set the models cache service
 $di->setShared(
@@ -95,6 +96,9 @@ $di->setShared('view', function () {
 $di->set('Truncate', function () {
     return new Truncate();
 });
+$di->set('Slug', function () {
+    return new Slug();
+});
 $di->setShared('Breadcrumbs', function () {
     return new Breadcrumbs;
 });
@@ -110,6 +114,12 @@ $di->set(
     function() {
         $AuthPlugin = new AuthPlugin;
         return $AuthPlugin;
+});
+$di->set(
+    'ImagenesPlugin',
+    function() {
+        $ImagenesPlugin = new ImagenesPlugin;
+        return $ImagenesPlugin;
 });
 /**
  * Fin plugins

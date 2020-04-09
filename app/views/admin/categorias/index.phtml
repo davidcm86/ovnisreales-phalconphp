@@ -1,0 +1,33 @@
+<div class="row">
+    <h1>Listado de categorias</h1>
+</div>
+<table class="table margintop4">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($page->items)) { ?>
+            <?php foreach ($page->items as $categoria): ?>
+                <tr>
+                    <td><?php echo $categoria->nombre; ?></td>
+                    <td><?php echo $this->tag->linkTo(["/admin/categorias/editar/" . $categoria->id, "Editar"]); ?></td>
+                    <td><?php echo $this->tag->linkTo(["/admin/categorias/delete/" . $categoria->id, "Borrar", 'onClick' => 'return confirm("¿estás seguro?.");']); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php } ?>
+    </tbody>
+</table>
+
+<div class="paginacion">
+    <p><?php echo $page->current, "/", $page->total_pages ?></p>
+    <ul>
+        <li><?php echo $this->tag->linkTo("/admin/categorias/index", "Primero") ?></li>
+        <li><?php echo $this->tag->linkTo("/admin/categorias/index?page=" . $page->before, "Anterior") ?></li>
+        <li><?php echo $this->tag->linkTo("/admin/categorias/index?page=" . $page->next, "Siguiente") ?></li>
+        <li><?php echo $this->tag->linkTo("/admin/categorias/index?page=" . $page->last, "Último") ?></li>
+     </ul>
+</div>

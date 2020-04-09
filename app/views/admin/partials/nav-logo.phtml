@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-3 col-sm-4 col-7">
+	<div class="col-md-3 col-sm-3 col-3">
 		<?php
 			echo $this->tag->image(
 			    [
@@ -10,11 +10,27 @@
 			);
 		?>
 	</div>
-	<div class="col-md-9 col-sm-8 col-12">
-		<?php if (isset($usuarioAdmin) && !empty($usuarioAdmin)) { ?>
+	<?php if (isset($usuarioAdmin) && !empty($usuarioAdmin)) { ?>
+		<div class="col-md-3 col-sm-3 col-3">
 			<span style="margin-right:20px"><?php echo 'Hola David'; ?></span>
 			<a href="/admin/usuarios/logoutAdmin" class="">Desconectar</a>
-		<?php } ?>
-	</div>
+		</div>
+		<div class="col-md-3 col-sm-3 col-3">
+			<div class="select">
+				<?php
+					echo $this->tag->select(
+					[
+						'selectLanguage',
+						$languages,
+						'using' => [
+							'language',
+							'name',
+						],
+						'emptyText'  => 'Elige tu país',
+					]);
+				?>
+			</div>
+		</div>
+	<?php } ?>
 </div>
 

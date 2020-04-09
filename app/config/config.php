@@ -27,7 +27,8 @@ return new \Phalcon\Config([
         'cacheDir'       => BASE_PATH . '/cache/',
         'logPath'        => BASE_PATH . '/tmp/logs/error.log',
         'formsDir'       => APP_PATH . '/formsValidations/',
-        'vendorDir'      => BASE_PATH . '/vendor/'
+        'vendorDir'      => BASE_PATH . '/vendor/',
+        'classesDir'     => APP_PATH . '/classes/',
         // This allows the baseUri to be understand project paths that are not in the root directory
         // of the webpspace.  This will break if the public/index.php entry point is moved or
         // possibly if the web server rewrite rules are changed. This can also be set to a static path.

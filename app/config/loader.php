@@ -24,7 +24,8 @@ $loader
             'OvnisReales\Controllers\Admin' => $config->application->controllersDirAdmin,
             'OvnisReales\Models' => $config->application->modelsDir,
             'OvnisReales\Vendor' => $config->application->vendorDir,
-            'OvnisReales' => $config->application->libraryDir
+            'OvnisReales' => $config->application->libraryDir,
+            'OvnisReales\Classes' => $config->application->classesDir,
         ]
     );
 

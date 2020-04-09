@@ -15,11 +15,11 @@ class CategoriasController extends ControllerBase
     {
         $this->assets->addJs('js/productos.js');
         $categoriaSlug = $this->dispatcher->getParam('categoriaSlug');
-        $categoria = $this->modelsCache->get('categorias-listado-' . DOMINIO_SELECT);
-        if (empty($categoria)) {
+        //$categoria = $this->modelsCache->get('categorias-listado-' . DOMINIO_SELECT);
+        //if (empty($categoria)) {
             $categoria = Categorias::findFirst(["conditions" => "pais = '" . DOMINIO_SELECT . "' AND slug = '" . $categoriaSlug . "'"]);
             $this->modelsCache->save('categorias-listado-' . DOMINIO_SELECT, $categoria);
-        }
+        //}
         $this->view->categoria = $categoria;
 
         //$productos = $this->modelsCache->get('categorias-productos-' . DOMINIO_SELECT);
@@ -28,9 +28,9 @@ class CategoriasController extends ControllerBase
             $this->modelsCache->save('categorias-productos-' . DOMINIO_SELECT, $productos);
         //}
         $this->view->productos = $productos;
-
         $this->view->titleSeo = $categoria->title_seo;
         $this->view->descriptionSeo = $categoria->description_seo;
+        $this->view->keywords = $categoria->keywords;
         // breadcrumbs
         $this->Breadcrumbs->add('Inicio', '/');
         $breadCrumbJsonld[] = ['nombre' => 'Inicio', 'url' => '/'];

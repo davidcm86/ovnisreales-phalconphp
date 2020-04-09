@@ -20,7 +20,7 @@ class AuthPlugin extends Plugin
     private function __setSessionLoginUsuario($usuario, $nombreSession = 'Usuario') {
 
         $sessionUsuario = ['id' => $usuario->id, 'email' => $usuario->email, 'created' => time()];
-        $this->flashSession->success('Bienvenida a Ovnis Reales');
+        $this->flashSession->success('Bienvenido a Ovnis Reales');
         $this->session->set($nombreSession, $sessionUsuario);
         return;
     }

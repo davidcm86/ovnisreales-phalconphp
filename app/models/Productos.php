@@ -70,14 +70,7 @@ class Productos extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $categoria_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $imagen_tratada;
     
-
     /**
      * Initialize method for model.
      */
@@ -118,6 +111,16 @@ class Productos extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    public function beforeCreate()
+    {
+        $this->created = date('Y-m-d H:i:s');
+    }
+
+    public function beforeUpdate()
+    {
+        $this->modified = date('Y-m-d H:i:s');
     }
 
 }

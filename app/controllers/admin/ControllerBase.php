@@ -10,9 +10,18 @@ class ControllerBase extends Controller
         date_default_timezone_set('Europe/Madrid');
         setlocale(LC_ALL, 'es_ES.UTF-8');
         $this->assets->addCss('css/admin-estilos.css');
-        $this->assets->addJs('js/jquery-3.4.1.min.js');
-        $this->assets->addJs('js/bootstrap-4.1.3.min.js');
+        $this->assets->addJs('js/admin/jquery-3.4.1.min.js');
+        $this->assets->addJs('js/admin/bootstrap-4.1.3.min.js');
+        $this->assets->addJs('js/admin/general.js');
         $this->view->setTemplateAfter('administrador');
+        $this->view->languages = ['es' => 'Español', 'mx' => 'México'];
+        if (!$this->session->has('IdiomaAdmin')) {
+            $this->session->set('IdiomaAdmin', 'es');
+            $this->tag->setDefault('selectLanguage', 'es');
+        } else {
+            $idiomaAdmin = $this->session->get('IdiomaAdmin');
+            $this->tag->setDefault('selectLanguage', $idiomaAdmin);
+        }
         if ($this->session->has('UsuarioAdmin')) $this->view->usuarioAdmin = $this->session->get('UsuarioAdmin');
     }
 

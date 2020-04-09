@@ -2,6 +2,11 @@
 
 namespace OvnisReales\Models;
 
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Uniqueness;
+
 class Categorias extends \Phalcon\Mvc\Model
 {
 
@@ -60,6 +65,86 @@ class Categorias extends \Phalcon\Mvc\Model
     public $descripcion_secundaria;
 
     /**
+     *
+     * @var string
+     */
+    public $modified;
+
+    /**
+     *
+     * @var string
+     */
+    public $created;
+
+    /**
+     *
+     * @var string
+     */
+    public $keywords;
+
+    /**
+     * Validations and business logic
+     *
+     * @return boolean
+     */
+    public function validation()
+    {
+        $validator = new Validation();
+
+        $validator->add(
+            'nombre',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'El Nombre es obligatorio.',
+            ])
+        );
+
+        $validator->add(
+            "nombre",
+            new Uniqueness(
+                [
+                    'model'   => $this,
+                    "message" => "Ya existe un nombre igual, utiliza otro.",
+                ]
+            )
+        );
+
+        $validator->add(
+            'title_seo',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'El Título SEO es obligatorio.',
+            ])
+        );
+
+        $validator->add(
+            'description_seo',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'El Descripción SEO es obligatoria.',
+            ])
+        );
+
+        $validator->add(
+            'keywords',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'Las Keywords son obligatorias.',
+            ])
+        );
+
+        $validator->add(
+            'imagen',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'Debes introducir una imagen.'
+            ])
+        );
+
+        return $this->validate($validator);
+    }
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -76,6 +161,17 @@ class Categorias extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'categorias';
+    }
+
+    public function beforeCreate()
+    {
+        $this->created = date('Y-m-d H:i:s');
+    }
+
+
+    public function beforeUpdate()
+    {
+        $this->modified = date('Y-m-d H:i:s');
     }
 
     /**
