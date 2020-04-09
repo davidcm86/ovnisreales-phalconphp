@@ -90,90 +90,79 @@ class ProductosController extends ControllerBase
 
     public function editarAction($id)
     {
-        $categoria = Categorias::findFirst($id);
-        if (!$categoria) {
-            $this->flashSession->error("Categoria no encontrada.");
-            $this->response->redirect('/admin/categorias');
-            return;
-        }
-        $this->assets->addJs('/js/admin/ckeditor/ckeditor.js');
-        $this->assets->addJs('/js/admin/categorias.js');
-        if ($this->request->isPost()) {
-            $nombre = $this->request->getPost('nombre');
-            if ($nombre != $categoria->nombre) {
-                $categoria->nombre = $this->request->getPost('nombre');
-                $categoria->slug = $this->Slug->generate($this->request->getPost('nombre'));
+        try {
+            $producto = Productos::findFirst($id);
+            if (!$producto) {
+                $this->flashSession->error("Producto no encontrado.");
+                $this->response->redirect('/admin/productos');
+                return;
             }
-            $categoria->pais = $this->session->get('IdiomaAdmin');
-            $categoria->descripcion_principal = $this->request->getPost('descripcion_principal');
-            $categoria->descripcion_secundaria = $this->request->getPost('descripcion_secundaria');
-            $categoria->title_seo = $this->request->getPost('title_seo');
-            $categoria->description_seo = $this->request->getPost('description_seo');
-            $categoria->keywords = $this->request->getPost('keywords');
-            $files = $this->request->getUploadedFiles();
-            if ($categoria->update()) {
-                if (isset($files[0]) && !empty($files[0]->getName())) {
-                    $rutaImagen = BASE_PATH . '/public/img/categorias_principales/' . $this->idiomaAdmin . '/';
-                    $rutaImagenBuscar = BASE_PATH . '/public/' . $categoria->imagen;
-                    $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $categoria->slug, $rutaImagenBuscar);
+            if ($this->request->isPost()) {
+                $producto->nombre_producto = $this->request->getPost('nombre_producto');
+                $producto->tipo_moneda_id = $this->__getIdTipoMonedaid($this->idiomaAdmin);
+                $producto->categoria_id = $this->request->getPost('categoria_id');
+                $producto->precio = $this->request->getPost('precio');
+                $producto->es_rebajado = $this->request->getPost('es_rebajado');
+                $producto->activo = $this->request->getPost('activo');
+                $producto->enlace = $this->request->getPost('enlace');
+                $files = $this->request->getUploadedFiles();
+                if (isset($files[0]) && !empty($files[0]->getName())) $producto->imagen = "validation-true";
+                if ($producto->save()) {
+                    $rutaImagen = BASE_PATH . '/public/img/productos/' . Categorias::getSlugCategoria($producto->categoria_id) . '/' . $this->idiomaAdmin . '/';
+                    $rutaImagenBuscar = BASE_PATH . '/public/' . $producto->imagen;
+                    $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $this->Slug->generate($producto->nombre_producto), $rutaImagenBuscar);
                     if (!empty($rutaImagenBd)) {
-                        $categoria->imagen = $rutaImagenBd;
-                        $categoria->update();
+                        $producto->imagen = $rutaImagenBd;
+                        $producto->update();
                     }
+                    $this->flashSession->success("El producto ha sido creada correctamente.");
+                    $this->response->redirect('/admin/productos');
+                } else {
+                    $messagesError = [];
+                    foreach ($producto->getMessages() as $message) {
+                        $messagesError[] = $message . '</br>';
+                    }
+                    $this->view->messagesError = $messagesError;
                 }
-                $this->flashSession->success("La categoría ha sido creada correctamente.");
-                $this->response->redirect('/admin/categorias');
             } else {
-                $messagesError = [];
-                foreach ($categoria->getMessages() as $message) {
-                    $messagesError[] = $message . '</br>';
-                }
-                $this->tag->setDefault("descripcion_principal", $this->request->getPost('descripcion_principal'));
-                $this->tag->setDefault("descripcion_secundaria", $this->request->getPost('descripcion_secundaria'));
-                $this->view->messagesError = $messagesError;
+                $this->view->imagen = $producto->imagen;
+                $this->tag->setDefault("id", $producto->id);
+                $this->tag->setDefault("nombre_producto", $producto->nombre_producto);
+                $this->tag->setDefault("categoria_id", $producto->categoria_id);
+                $this->tag->setDefault("precio", $producto->precio);
+                $this->tag->setDefault("es_rebajado", $producto->es_rebajado);
+                $this->tag->setDefault("activo", $producto->activo);
+                $this->tag->setDefault("enlace", $producto->enlace);   
             }
-        } else {
-            $this->view->imagen = $categoria->imagen;
-            $this->tag->setDefault("id", $categoria->id);
-            $this->tag->setDefault("nombre", $categoria->nombre);
-            $this->tag->setDefault("descripcion_principal", $categoria->descripcion_principal);
-            $this->tag->setDefault("descripcion_secundaria", $categoria->descripcion_secundaria);
-            $this->tag->setDefault("title_seo", $categoria->title_seo);
-            $this->tag->setDefault("description_seo", $categoria->description_seo);
-            $this->tag->setDefault("keywords", $categoria->keywords);   
+            $this->view->id = $id;
+            $this->view->categorias = Categorias::find(['conditions' => 'pais = "'.$this->idiomaAdmin.'"']);
+        } catch (\Exception $e) {
+            $message = get_class($e) . ": " . $e->getMessage() . "\n" . " File=" . $e->getFile() . "\n" . " Line=" . $e->getLine() . "\n" . $e->getTraceAsString() . "\n";
         }
-        $this->view->id = $id;
     }
 
     public function deleteAction($id)
     {
         $this->view->disable();
-        $categoria = Categorias::findFirstByid($id);
-        if (!$categoria) {
-            $this->flashSession->error("La categoría no ha sido encontrada.");
-            $this->response->redirect('/admin/categorias');
+        $producto = Productos::findFirstByid($id);
+        if (!$producto) {
+            $this->flashSession->error("El producto no ha sido encontrada.");
+            $this->response->redirect('/admin/productos');
             return;
         }
-        $rutaImagenBorrar = BASE_PATH . '/public' . $categoria->imagen;
+        $rutaImagenBorrar = BASE_PATH . '/public' . $producto->imagen;
         if (file_exists($rutaImagenBorrar)) unlink($rutaImagenBorrar);
-        if (!$categoria->delete()) {
+        if (!$producto->delete()) {
             $messagesError = '';
-            foreach ($categoria->getMessages() as $message) {
+            foreach ($producto->getMessages() as $message) {
                 $messagesError .= $message;
             }
             $this->flashSession->success($messagesError);
-            $this->response->redirect('/admin/categorias');
+            $this->response->redirect('/admin/productos');
             return;
         }
-        $this->flashSession->success("La categoría ha sido borrada correctamente.");
-        $this->response->redirect('/admin/categorias');
-    }
-
-    public function cambiarIdiomaAction($idioma = null)
-    {
-        $this->view->disable();
-        if (!empty($idioma)) $this->session->set('IdiomaAdmin', $idioma);
-        $this->response->redirect('/admin/categorias');
+        $this->flashSession->success("El producto ha sido borrada correctamente.");
+        $this->response->redirect('/admin/productos');
     }
 
     private function __getIdTipoMonedaid($pais)
