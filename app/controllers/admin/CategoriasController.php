@@ -38,66 +38,94 @@ class CategoriasController extends ControllerBase
 
     public function crearAction()
     {
-        try {
-            $this->assets->addJs('/js/admin/ckeditor/ckeditor.js');
-            $this->assets->addJs('/js/admin/categorias.js');
-            if ($this->request->isPost()) {
-                $categoria = new Categorias();
-                $categoria->nombre = $this->request->getPost('nombre');
-                $categoria->slug = $this->Slug->generate($this->request->getPost('nombre'));
-                $categoria->pais = $this->session->get('IdiomaAdmin');
-                $categoria->descripcion_principal = $this->request->getPost('descripcion_principal');
-                $categoria->descripcion_secundaria = $this->request->getPost('descripcion_secundaria');
-                $categoria->title_seo = $this->request->getPost('title_seo');
-                $categoria->description_seo = $this->request->getPost('description_seo');
-                $categoria->keywords = $this->request->getPost('keywords');
-                $files = $this->request->getUploadedFiles();
-                if (isset($files[0]) && !empty($files[0]->getName())) $categoria->imagen = "validation-true";
-                if ($categoria->save()) {
-                    $rutaImagen = BASE_PATH . '/public/img/categorias_principales/' . $this->idiomaAdmin . '/';
-                    $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $categoria->slug);
-                    if (!empty($rutaImagenBd)) {
-                        $categoria->imagen = $rutaImagenBd;
-                        $categoria->update();
-                    }
-                    $this->flashSession->success("La categoría ha sido creada correctamente.");
-                    $this->response->redirect('/admin/categorias');
-                } else {
-                    $messagesError = [];
-                    foreach ($categoria->getMessages() as $message) {
-                        $messagesError[] = $message . '</br>';
-                    }
-                    $this->tag->setDefault("descripcion_principal", $this->request->getPost('descripcion_principal'));
-                    $this->tag->setDefault("descripcion_secundaria", $this->request->getPost('descripcion_secundaria'));
-                    $this->view->messagesError = $messagesError;
+        $this->assets->addJs('/js/admin/ckeditor/ckeditor.js');
+        $this->assets->addJs('/js/admin/categorias.js');
+        if ($this->request->isPost()) {
+            $categoria = new Categorias();
+            $categoria->nombre = $this->request->getPost('nombre');
+            $categoria->slug = $this->Slug->generate($this->request->getPost('nombre'));
+            $categoria->pais = $this->session->get('IdiomaAdmin');
+            $categoria->descripcion_principal = $this->request->getPost('descripcion_principal');
+            $categoria->descripcion_secundaria = $this->request->getPost('descripcion_secundaria');
+            $categoria->title_seo = $this->request->getPost('title_seo');
+            $categoria->description_seo = $this->request->getPost('description_seo');
+            $categoria->keywords = $this->request->getPost('keywords');
+            $files = $this->request->getUploadedFiles();
+            if (isset($files[0]) && !empty($files[0]->getName())) $categoria->imagen = "validation-true";
+            if ($categoria->save()) {
+                $rutaImagen = BASE_PATH . '/public/img/categorias_principales/' . $this->idiomaAdmin . '/';
+                $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $categoria->slug);
+                if (!empty($rutaImagenBd)) {
+                    $categoria->imagen = $rutaImagenBd;
+                    $categoria->update();
                 }
+                $this->flashSession->success("La categoría ha sido creada correctamente.");
+                $this->response->redirect('/admin/categorias');
+            } else {
+                $messagesError = [];
+                foreach ($categoria->getMessages() as $message) {
+                    $messagesError[] = $message . '</br>';
+                }
+                $this->tag->setDefault("descripcion_principal", $this->request->getPost('descripcion_principal'));
+                $this->tag->setDefault("descripcion_secundaria", $this->request->getPost('descripcion_secundaria'));
+                $this->view->messagesError = $messagesError;
             }
-        } catch (\Exception $e) {
-            $message = get_class($e) . ": " . $e->getMessage() . "\n" . " File=" . $e->getFile() . "\n" . " Line=" . $e->getLine() . "\n" . $e->getTraceAsString() . "\n";
-            print_r($message);die;
         }
     }
 
     public function editarAction($id)
     {
-        $video = VideosFacebook::findFirstByid($id);
-        if (!$video) {
-            $this->flashSession->success("Video no encontrado.");
-            $this->response->redirect('admin/videosfacebook');
+        $categoria = Categorias::findFirst($id);
+        if (!$categoria) {
+            $this->flashSession->error("Categoria no encontrada.");
+            $this->response->redirect('/admin/categorias');
             return;
-        }    
+        }
+        $this->assets->addJs('/js/admin/ckeditor/ckeditor.js');
+        $this->assets->addJs('/js/admin/categorias.js');
         if ($this->request->isPost()) {
-            $video->titulo = $this->request->getPost('titulo');
-            $video->facebook_id = $this->request->getPost('facebook_id');
-            $video->descripcion = $this->request->getPost('descripcion');
-            if ($video->save()) {
-                $this->flashSession->success("Video editado correctamente.");
-                $this->response->redirect('/admin/videosfacebook');
+            $nombre = $this->request->getPost('nombre');
+            if ($nombre != $categoria->nombre) {
+                $categoria->nombre = $this->request->getPost('nombre');
+                $categoria->slug = $this->Slug->generate($this->request->getPost('nombre'));
+            }
+            $categoria->pais = $this->session->get('IdiomaAdmin');
+            $categoria->descripcion_principal = $this->request->getPost('descripcion_principal');
+            $categoria->descripcion_secundaria = $this->request->getPost('descripcion_secundaria');
+            $categoria->title_seo = $this->request->getPost('title_seo');
+            $categoria->description_seo = $this->request->getPost('description_seo');
+            $categoria->keywords = $this->request->getPost('keywords');
+            $files = $this->request->getUploadedFiles();
+            if ($categoria->update()) {
+                if (isset($files[0]) && !empty($files[0]->getName())) {
+                    $rutaImagen = BASE_PATH . '/public/img/categorias_principales/' . $this->idiomaAdmin . '/';
+                    $rutaImagenBuscar = BASE_PATH . '/public/' . $categoria->imagen;
+                    $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $categoria->slug, $rutaImagenBuscar);
+                    if (!empty($rutaImagenBd)) {
+                        $categoria->imagen = $rutaImagenBd;
+                        $categoria->update();
+                    }
+                }
+                $this->flashSession->success("La categoría ha sido creada correctamente.");
+                $this->response->redirect('/admin/categorias');
+            } else {
+                $messagesError = [];
+                foreach ($categoria->getMessages() as $message) {
+                    $messagesError[] = $message . '</br>';
+                }
+                $this->tag->setDefault("descripcion_principal", $this->request->getPost('descripcion_principal'));
+                $this->tag->setDefault("descripcion_secundaria", $this->request->getPost('descripcion_secundaria'));
+                $this->view->messagesError = $messagesError;
             }
         } else {
-            $this->tag->setDefault("titulo", $video->titulo);
-            $this->tag->setDefault("facebook_id", $video->facebook_id);
-            $this->tag->setDefault("descripcion", $video->descripcion);
+            $this->view->imagen = $categoria->imagen;
+            $this->tag->setDefault("id", $categoria->id);
+            $this->tag->setDefault("nombre", $categoria->nombre);
+            $this->tag->setDefault("descripcion_principal", $categoria->descripcion_principal);
+            $this->tag->setDefault("descripcion_secundaria", $categoria->descripcion_secundaria);
+            $this->tag->setDefault("title_seo", $categoria->title_seo);
+            $this->tag->setDefault("description_seo", $categoria->description_seo);
+            $this->tag->setDefault("keywords", $categoria->keywords);   
         }
         $this->view->id = $id;
     }
@@ -105,23 +133,25 @@ class CategoriasController extends ControllerBase
     public function deleteAction($id)
     {
         $this->view->disable();
-        $video = VideosFacebook::findFirstByid($id);
-        if (!$video) {
-            $this->flashSession->success("El video no ha sido encontrado.");
-            $this->response->redirect('admin/videosfacebook');
+        $categoria = Categorias::findFirstByid($id);
+        if (!$categoria) {
+            $this->flashSession->error("La categoría no ha sido encontrada.");
+            $this->response->redirect('/admin/categorias');
             return;
         }
-        if (!$video->delete()) {
+        $rutaImagenBorrar = BASE_PATH . '/public' . $categoria->imagen;
+        if (file_exists($rutaImagenBorrar)) unlink($rutaImagenBorrar);
+        if (!$categoria->delete()) {
             $messagesError = '';
-            foreach ($video->getMessages() as $message) {
+            foreach ($categoria->getMessages() as $message) {
                 $messagesError .= $message;
             }
             $this->flashSession->success($messagesError);
-            $this->response->redirect('admin/videosfacebook');
+            $this->response->redirect('/admin/categorias');
             return;
         }
-        $this->flashSession->success("El video ha sido borrado correctamente.");
-        $this->response->redirect('admin/videosfacebook');
+        $this->flashSession->success("La categoría ha sido borrada correctamente.");
+        $this->response->redirect('/admin/categorias');
     }
 
     public function cambiarIdiomaAction($idioma = null)

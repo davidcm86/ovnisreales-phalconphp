@@ -1,22 +1,13 @@
-<?php
-/**
- * @var \Phalcon\Mvc\View\Engine\Php $this
- */
-?>
-
 <div class="row">
     <div class="col-md-6 col-sm-6 col-xs-8">
-        <h1>Editar video</h1>
-    </div>
-    <div class="col-md-6 col-sm-6 col-xs-4 textright">
-        <?php echo $this->tag->linkTo(["admin/redactores", "Atrás", "class" => "btn"]) ?>
+        <h1>Editar categoria</h1>
     </div>
 </div>
 
 <?php echo $this->getContent(); ?>
 
 <?php if (isset($messagesError) && !empty($messagesError)) { ?>
-    <div class="alert alert-success">
+    <div class="alert alert-warning">
         <?php foreach ($messagesError as $mensage) { ?>
             <?php echo $mensage; ?>
         <?php } ?>
@@ -26,7 +17,7 @@
 <?php
     echo $this->tag->form(
         [
-            "admin/videosfacebook/editar/" . $id,
+            "/admin/categorias/editar/" . $id,
             "autocomplete" => "off",
             "class" => "form-row",
             "method" => "post",
@@ -37,24 +28,58 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group">
-        <label for="fieldFacebookId">Facebook id</label>
-        <?php echo $this->tag->textField(["facebook_id", "class" => "form-control", "id" => "fieldFacebookId", "required" => true]) ?>
+        <label for="fieldNombre">Nombre</label>
+        <?php echo $this->tag->textField(["nombre", "class" => "form-control", "id" => "fieldNombre"]) ?>
     </div>
 </div>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group">
-        <label for="fieldTitulo">Título</label>
-        <?php echo $this->tag->textField(["titulo", "class" => "form-control", "id" => "fieldTitulo", "required" => true]) ?>
+        <label for="fieldDescripcionPrincipal">Descripción Principal</label>
+        <?php echo $this->tag->textArea(["descripcion_principal", "class" => "form-control", "id" => "descripcion_principal", "name" => "descripcion_principal"]) ?>
     </div>
 </div>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group">
-        <label for="fieldDescripcion">Descripción</label>
-        <?php echo $this->tag->textArea(["descripcion", "class" => "form-control", "id" => "fieldDescripcion"]) ?>
+        <label for="fieldDescripcionSecundaria">Descripción Secundaria</label>
+        <?php echo $this->tag->textArea(["descripcion_secundaria", "class" => "form-control", "id" => "descripcion_secundaria", "name" => "descripcion_secundaria"]) ?>
     </div>
 </div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group">
+        <label for="fieldTitleSeo">Título SEO</label>
+        <?php echo $this->tag->textField(["title_seo", "class" => "form-control", "id" => "fieldTitleSeo"]) ?>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group">
+        <label for="fieldDescriptionSeo">Descripción SEO</label>
+        <?php echo $this->tag->textField(["description_seo", "class" => "form-control", "id" => "fieldDescriptionSeo"]) ?>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group">
+        <label for="fieldKeywords">Keywords Ejemplo: camiseta ovnis,tazas extraterrestres</label>
+        <?php echo $this->tag->textField(["keywords", "class" => "form-control", "id" => "fieldKeywords"]) ?>
+    </div>
+</div>
+
+
+<?php if (!empty($imagen) && file_exists(BASE_PATH . '/public/' . $imagen)) { ?>
+    <div class="form-group col-md-12 col-sm-12 col-12">
+        <?php echo $this->tag->image([$imagen, 'style' => 'width:500px;height:300px;']); ?></br></br>
+        </br>
+    </div>
+<?php } ?>
+<div class="form-group col-md-6 col-sm-6 col-xs-12">
+    <label for="fieldImagen">Imagen</label>
+    <?php echo $this->tag->fileField(["imagen", "class" => "form-control", "id" => "fieldImagen"]) ?>
+</div>
+
 
 <div class="col-md-12 col-sm-12 col-xs-12 textcenter">
     <?php echo $this->tag->submitButton(["Editar", "class" => "btn btn-default"]) ?>

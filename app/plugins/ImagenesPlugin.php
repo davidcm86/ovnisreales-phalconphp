@@ -15,7 +15,7 @@ class ImagenesPlugin extends Plugin
             foreach ($files as $file) {
                 if (!empty($file->getName()) && $file->getKey() == 'imagen') {
                     if ($this->extensionesPermitidas($file->getExtension())) {
-                        $nombreFichero = $this->Slug->generate($this->quitarExtension($file->getName())) . '-' . $nombreArchivo . '.' . $file->getExtension();
+                        $nombreFichero = $nombreArchivo . '.' . $file->getExtension();
                         if (!file_exists($rutaImagen)) {
                             mkdir($rutaImagen, 0777, true);
                             chmod($rutaImagen, 0777);
@@ -68,19 +68,6 @@ class ImagenesPlugin extends Plugin
             $resizeObj = new ResizeClass($rutaImagenAbsoluta);
             $resizeObj -> resizeImage(450, 300, 'crop');
             $resizeObj -> saveImage($rutaImagenAbsoluta, 90);
-        }
-    }
-
-    public function borrarImagen($imagenId)
-    {
-        $imagen = Imagenes::findFirstById($imagenId);
-        if (!empty($imagen)) {
-            $rutaImagenBorrar = BASE_PATH . '/public' . $imagen->ruta;
-            if (file_exists($rutaImagenBorrar)) unlink($rutaImagenBorrar);
-            // borrar list
-            $rutaImagenBorrarList = str_replace('.', '_list.', $imagen->ruta);
-            if (file_exists($rutaImagenBorrarList)) unlink(BASE_PATH . '/public' . $rutaImagenBorrarList);
-            $imagen->delete();
         }
     }
 }
