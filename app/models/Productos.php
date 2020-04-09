@@ -2,6 +2,10 @@
 
 namespace OvnisReales\Models;
 
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Uniqueness;
+
 class Productos extends \Phalcon\Mvc\Model
 {
 
@@ -70,6 +74,68 @@ class Productos extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $categoria_id;
+
+    /**
+     * Validations and business logic
+     *
+     * @return boolean
+     */
+    public function validation()
+    {
+        $validator = new Validation();
+
+        $validator->add(
+            'nombre_producto',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'El Nombre es obligatorio.',
+            ])
+        );
+
+        $validator->add(
+            'nombre_producto',
+            new Uniqueness([
+                'model'   => $this,
+                'message' => 'El Nombre no puede estar repetido.',
+            ])
+        );
+
+        $validator->add(
+            'precio',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'El Precio es obligatorio.',
+            ])
+        );
+
+        $validator->add(
+            'enlace',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'El Enlace es obligatorio.',
+            ])
+        );
+
+        $validator->add(
+            "enlace",
+            new Uniqueness(
+                [
+                    'model'   => $this,
+                    "message" => "Ya existe un Enlace igual, utiliza otro.",
+                ]
+            )
+        );
+
+        $validator->add(
+            'categoria_id',
+            new PresenceOf([
+                'model'   => $this,
+                'message' => 'La categoría es obligatoria.',
+            ])
+        );
+
+        return $this->validate($validator);
+    }
     
     /**
      * Initialize method for model.

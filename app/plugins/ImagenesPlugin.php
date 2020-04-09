@@ -13,23 +13,21 @@ class ImagenesPlugin extends Plugin
         if ($this->request->hasFiles()) {
             $files = $this->request->getUploadedFiles();
             foreach ($files as $file) {
-                if (!empty($file->getName()) && $file->getKey() == 'imagen') {
-                    if ($this->extensionesPermitidas($file->getExtension())) {
-                        $nombreFichero = $nombreArchivo . '.' . $file->getExtension();
-                        if (!file_exists($rutaImagen)) {
-                            mkdir($rutaImagen, 0777, true);
-                            chmod($rutaImagen, 0777);
-                        }
-                        $rutaSalvarBd = $rutaImagen . $nombreFichero;
-                        if (!empty($rutaImagenBd) && file_exists($rutaImagenBd)) unlink($rutaImagenBd);
-                        $salvarRutaImagen = $rutaImagen . '/' . $nombreFichero;
-                        $salvarRutaImagen = str_replace('//', '/', $salvarRutaImagen);
-                        $file->moveTo($salvarRutaImagen);
-                        $this->generarImagenesTamanios($salvarRutaImagen);
-                        chmod($salvarRutaImagen, 0777);
-                        $returnRutaBD = explode('/public', $rutaSalvarBd);
-                        return $returnRutaBD[1];
+                if ($this->extensionesPermitidas($file->getExtension())) {
+                    $nombreFichero = $nombreArchivo . '.' . $file->getExtension();
+                    if (!file_exists($rutaImagen)) {
+                        mkdir($rutaImagen, 0777, true);
+                        chmod($rutaImagen, 0777);
                     }
+                    $rutaSalvarBd = $rutaImagen . $nombreFichero;
+                    if (!empty($rutaImagenBd) && file_exists($rutaImagenBd)) unlink($rutaImagenBd);
+                    $salvarRutaImagen = $rutaImagen . '/' . $nombreFichero;
+                    $salvarRutaImagen = str_replace('//', '/', $salvarRutaImagen);
+                    $file->moveTo($salvarRutaImagen);
+                    $this->generarImagenesTamanios($salvarRutaImagen);
+                    chmod($salvarRutaImagen, 0777);
+                    $returnRutaBD = explode('/public', $rutaSalvarBd);
+                    return $returnRutaBD[1];
                 }
             }
         }

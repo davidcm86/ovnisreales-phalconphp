@@ -3,7 +3,6 @@
 namespace OvnisReales\Models;
 
 use Phalcon\Validation;
-use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Uniqueness;
 
@@ -194,6 +193,14 @@ class Categorias extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    public static function getSlugCategoria($categoriaId)
+    {
+        $parameters['conditions'] = "id = " . $categoriaId;
+        $categoria = parent::findFirst($parameters);
+        if (!isset($categoria->slug)) return '';
+        return $categoria->slug;
     }
 
 }
