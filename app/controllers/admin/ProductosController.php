@@ -52,93 +52,84 @@ class ProductosController extends ControllerBase
 
     public function crearAction()
     {
-        try {
-            if ($this->request->isPost()) {
-                $producto = new Productos();
-                $producto->nombre_producto = $this->request->getPost('nombre_producto');
-                $producto->tipo_moneda_id = $this->__getIdTipoMonedaid($this->idiomaAdmin);
-                $producto->categoria_id = $this->request->getPost('categoria_id');
-                $producto->precio = $this->request->getPost('precio');
-                $producto->es_rebajado = $this->request->getPost('es_rebajado');
-                $producto->activo = $this->request->getPost('activo');
-                $producto->enlace = $this->request->getPost('enlace');
-                $files = $this->request->getUploadedFiles();
-                if (isset($files[0]) && !empty($files[0]->getName())) $producto->imagen = "validation-true";
-                if ($producto->save()) {
-                    $rutaImagen = BASE_PATH . '/public/img/productos/' . Categorias::getSlugCategoria($producto->categoria_id) . '/' . $this->idiomaAdmin . '/';
-                    $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $this->Slug->generate($producto->nombre_producto));
-                    if (!empty($rutaImagenBd)) {
-                        $producto->imagen = $rutaImagenBd;
-                        $producto->update();
-                    }
-                    $this->flashSession->success("El producto ha sido creada correctamente.");
-                    $this->response->redirect('/admin/productos');
-                } else {
-                    $messagesError = [];
-                    foreach ($producto->getMessages() as $message) {
-                        $messagesError[] = $message . '</br>';
-                    }
-                    $this->view->messagesError = $messagesError;
+        if ($this->request->isPost()) {
+            $producto = new Productos();
+            $producto->nombre_producto = $this->request->getPost('nombre_producto');
+            $producto->tipo_moneda_id = $this->__getIdTipoMonedaid($this->idiomaAdmin);
+            $producto->categoria_id = $this->request->getPost('categoria_id');
+            $producto->precio = $this->request->getPost('precio');
+            $producto->es_rebajado = $this->request->getPost('es_rebajado');
+            $producto->activo = $this->request->getPost('activo');
+            $producto->enlace = $this->request->getPost('enlace');
+            $files = $this->request->getUploadedFiles();
+            if (isset($files[0]) && !empty($files[0]->getName())) $producto->imagen = "validation-true";
+            if ($producto->save()) {
+                $rutaImagen = BASE_PATH . '/public/images/productos/' . $this->idiomaAdmin . '/' . Categorias::getSlugCategoria($producto->categoria_id) . '/';
+                $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $this->Slug->generate($producto->nombre_producto));
+                if (!empty($rutaImagenBd)) {
+                    $producto->imagen = $rutaImagenBd;
+                    $producto->update();
                 }
+                $this->flashSession->success("El producto ha sido creada correctamente.");
+                $this->response->redirect('/admin/productos');
+            } else {
+                $messagesError = [];
+                foreach ($producto->getMessages() as $message) {
+                    $messagesError[] = $message . '</br>';
+                }
+                $this->view->messagesError = $messagesError;
             }
-            $this->view->categorias = Categorias::find(['conditions' => 'pais = "'.$this->idiomaAdmin.'"']);
-        } catch (\Exception $e) {
-            $message = get_class($e) . ": " . $e->getMessage() . "\n" . " File=" . $e->getFile() . "\n" . " Line=" . $e->getLine() . "\n" . $e->getTraceAsString() . "\n";
-            print_r($message);die;
         }
+        $this->view->categorias = Categorias::find(['conditions' => 'pais = "'.$this->idiomaAdmin.'"']);
     }
 
     public function editarAction($id)
     {
-        try {
-            $producto = Productos::findFirst($id);
-            if (!$producto) {
-                $this->flashSession->error("Producto no encontrado.");
-                $this->response->redirect('/admin/productos');
-                return;
-            }
-            if ($this->request->isPost()) {
-                $producto->nombre_producto = $this->request->getPost('nombre_producto');
-                $producto->tipo_moneda_id = $this->__getIdTipoMonedaid($this->idiomaAdmin);
-                $producto->categoria_id = $this->request->getPost('categoria_id');
-                $producto->precio = $this->request->getPost('precio');
-                $producto->es_rebajado = $this->request->getPost('es_rebajado');
-                $producto->activo = $this->request->getPost('activo');
-                $producto->enlace = $this->request->getPost('enlace');
-                $files = $this->request->getUploadedFiles();
-                if (isset($files[0]) && !empty($files[0]->getName())) $producto->imagen = "validation-true";
-                if ($producto->save()) {
-                    $rutaImagen = BASE_PATH . '/public/img/productos/' . Categorias::getSlugCategoria($producto->categoria_id) . '/' . $this->idiomaAdmin . '/';
-                    $rutaImagenBuscar = BASE_PATH . '/public/' . $producto->imagen;
-                    $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $this->Slug->generate($producto->nombre_producto), $rutaImagenBuscar);
-                    if (!empty($rutaImagenBd)) {
-                        $producto->imagen = $rutaImagenBd;
-                        $producto->update();
-                    }
-                    $this->flashSession->success("El producto ha sido creada correctamente.");
-                    $this->response->redirect('/admin/productos');
-                } else {
-                    $messagesError = [];
-                    foreach ($producto->getMessages() as $message) {
-                        $messagesError[] = $message . '</br>';
-                    }
-                    $this->view->messagesError = $messagesError;
-                }
-            } else {
-                $this->view->imagen = $producto->imagen;
-                $this->tag->setDefault("id", $producto->id);
-                $this->tag->setDefault("nombre_producto", $producto->nombre_producto);
-                $this->tag->setDefault("categoria_id", $producto->categoria_id);
-                $this->tag->setDefault("precio", $producto->precio);
-                $this->tag->setDefault("es_rebajado", $producto->es_rebajado);
-                $this->tag->setDefault("activo", $producto->activo);
-                $this->tag->setDefault("enlace", $producto->enlace);   
-            }
-            $this->view->id = $id;
-            $this->view->categorias = Categorias::find(['conditions' => 'pais = "'.$this->idiomaAdmin.'"']);
-        } catch (\Exception $e) {
-            $message = get_class($e) . ": " . $e->getMessage() . "\n" . " File=" . $e->getFile() . "\n" . " Line=" . $e->getLine() . "\n" . $e->getTraceAsString() . "\n";
+        $producto = Productos::findFirst($id);
+        if (!$producto) {
+            $this->flashSession->error("Producto no encontrado.");
+            $this->response->redirect('/admin/productos');
+            return;
         }
+        if ($this->request->isPost()) {
+            $producto->nombre_producto = $this->request->getPost('nombre_producto');
+            $producto->tipo_moneda_id = $this->__getIdTipoMonedaid($this->idiomaAdmin);
+            $producto->categoria_id = $this->request->getPost('categoria_id');
+            $producto->precio = $this->request->getPost('precio');
+            $producto->es_rebajado = $this->request->getPost('es_rebajado');
+            $producto->activo = $this->request->getPost('activo');
+            $producto->enlace = $this->request->getPost('enlace');
+            $files = $this->request->getUploadedFiles();
+            if (isset($files[0]) && !empty($files[0]->getName())) $producto->imagen = "validation-true";
+            if ($producto->save()) {
+                $rutaImagen = BASE_PATH . '/public/images/productos/' . $this->idiomaAdmin . '/' . Categorias::getSlugCategoria($producto->categoria_id) . '/';
+                $rutaImagenBuscar = BASE_PATH . '/public/' . $producto->imagen;
+                $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $this->Slug->generate($producto->nombre_producto), $rutaImagenBuscar);
+                if (!empty($rutaImagenBd)) {
+                    $producto->imagen = $rutaImagenBd;
+                    $producto->update();
+                }
+                $this->flashSession->success("El producto ha sido creada correctamente.");
+                $this->response->redirect('/admin/productos');
+            } else {
+                $messagesError = [];
+                foreach ($producto->getMessages() as $message) {
+                    $messagesError[] = $message . '</br>';
+                }
+                $this->view->messagesError = $messagesError;
+            }
+        } else {
+            $this->view->imagen = $producto->imagen;
+            $this->tag->setDefault("id", $producto->id);
+            $this->tag->setDefault("nombre_producto", $producto->nombre_producto);
+            $this->tag->setDefault("categoria_id", $producto->categoria_id);
+            $this->tag->setDefault("precio", $producto->precio);
+            $this->tag->setDefault("es_rebajado", $producto->es_rebajado);
+            $this->tag->setDefault("activo", $producto->activo);
+            $this->tag->setDefault("enlace", $producto->enlace);   
+        }
+        $this->view->id = $id;
+        $this->view->categorias = Categorias::find(['conditions' => 'pais = "'.$this->idiomaAdmin.'"']);
     }
 
     public function deleteAction($id)

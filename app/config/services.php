@@ -13,9 +13,11 @@ use Phalcon\Logger\Adapter\File as LogFileAdapter;
 use Phalcon\Breadcrumbs;
 use Phalcon\Cache\Frontend\Data as FrontendData;
 use Phalcon\Cache\Backend\Memcache as BackendMemcache;
-
 use OvnisReales\Utils\Truncate;
 use OvnisReales\Utils\Slug;
+use OvnisReales\Classes\MiddleWareViewClass;
+use Phalcon\Events\Event;
+use Phalcon\Events\Manager as EventsManager;
 
 // Set the models cache service
 $di->setShared(
@@ -69,7 +71,10 @@ $di->setShared('view', function () {
     $view = new View();
     $view->setDI($this);
     $view->setViewsDir($config->application->viewsDir);
-
+    $eventsManager = new EventsManager();
+    $eventsManager->attach('view:afterRender', MiddleWareViewClass::getInstance(''));
+    $view->setViewsDir($config->application->viewsDir);
+    $view->setEventsManager($eventsManager);
     $view->registerEngines([
         '.volt' => function ($view) {
             $config = $this->getConfig();

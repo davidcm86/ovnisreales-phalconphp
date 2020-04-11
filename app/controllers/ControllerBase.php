@@ -4,6 +4,8 @@ namespace OvnisReales\Controllers;
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 
+use OvnisReales\Classes\MiddleWareViewClass;
+
 class ControllerBase extends Controller
 {
     public function initialize()
@@ -16,5 +18,9 @@ class ControllerBase extends Controller
         $this->view->languages = ['es' => 'Español', 'mx' => 'México'];
         // enviamos idioma seleccionado al select
         $this->tag->setDefault('selectLanguage', DOMINIO_SELECT);
+        
+        // MinifyHTML
+        $middleWareViewClass = new MiddleWareViewClass();
+        $middleWareViewClass::getInstance()->minifyHtml();
     }
 }

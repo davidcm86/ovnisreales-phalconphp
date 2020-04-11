@@ -1,5 +1,8 @@
 <?php
-namespace OvnisReales\Controllers;
+namespace OvnisReales\Controllers\Admin;
+
+use OvnisReales\Models\Productos;
+use OvnisReales\Models\Categorias;
 
 class ProcesosController extends ControllerBase
 {
@@ -8,7 +11,6 @@ class ProcesosController extends ControllerBase
      */
     public function generoArraysAction($pass = '')
     {
-        if (empty($pass) || $pass != '3d6g45g5jh34f') die;
 		echo "Inicio";
 		if (!file_exists(RUTA_ARRAYS)) mkdir(RUTA_ARRAYS, 0777, true);
         $this->view->disable();
@@ -30,5 +32,18 @@ class ProcesosController extends ControllerBase
             fclose($fich);
         }
 		echo "Fin ok";
-	}
+    }
+    
+    public function cambiarRutasImagenesProductosAction()
+    {
+        echo "Inicio";
+        $productos = Productos::find();
+        foreach ($productos as $producto) {
+            $prod = explode('/', $producto->imagen);
+            $rutaImagenFinal = '/images/productos/' . $prod[4] . '/' . Categorias::getSlugCategoria($producto->categoria_id) . '/' . $prod[5];
+            $producto->imagen = $rutaImagenFinal;
+            $producto->update();
+        }
+		echo "Fin ok";
+    }
 }

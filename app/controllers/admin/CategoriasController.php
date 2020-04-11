@@ -53,7 +53,7 @@ class CategoriasController extends ControllerBase
             $files = $this->request->getUploadedFiles();
             if (isset($files[0]) && !empty($files[0]->getName())) $categoria->imagen = "validation-true";
             if ($categoria->save()) {
-                $rutaImagen = BASE_PATH . '/public/img/categorias_principales/' . $this->idiomaAdmin . '/';
+                $rutaImagen = BASE_PATH . '/public/images/categorias_principales/' . $this->idiomaAdmin . '/';
                 $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $categoria->slug);
                 if (!empty($rutaImagenBd)) {
                     $categoria->imagen = $rutaImagenBd;
@@ -98,7 +98,7 @@ class CategoriasController extends ControllerBase
             $files = $this->request->getUploadedFiles();
             if ($categoria->update()) {
                 if (isset($files[0]) && !empty($files[0]->getName())) {
-                    $rutaImagen = BASE_PATH . '/public/img/categorias_principales/' . $this->idiomaAdmin . '/';
+                    $rutaImagen = BASE_PATH . '/public/images/categorias_principales/' . $this->idiomaAdmin . '/';
                     $rutaImagenBuscar = BASE_PATH . '/public/' . $categoria->imagen;
                     $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $categoria->slug, $rutaImagenBuscar);
                     if (!empty($rutaImagenBd)) {
