@@ -11,7 +11,6 @@ class ProcesosController extends ControllerBase
      */
     public function generoArraysAction($pass = '')
     {
-		echo "Inicio";
 		if (!file_exists(RUTA_ARRAYS)) mkdir(RUTA_ARRAYS, 0777, true);
         $this->view->disable();
 		$datos=array(
@@ -31,7 +30,10 @@ class ProcesosController extends ControllerBase
             fwrite($fich,json_encode($normal));
             fclose($fich);
         }
-		echo "Fin ok";
+        $this->modelsCache->delete('Categoriases');
+        $this->modelsCache->delete('Categoriasmx');
+        $this->flashSession->success("Arrays generados correctamente.");
+        $this->response->redirect('/admin/productos');
     }
     
     public function cambiarRutasImagenesProductosAction()
