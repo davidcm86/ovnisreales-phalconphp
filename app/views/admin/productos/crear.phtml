@@ -33,24 +33,14 @@
     </div>
 </div>
 
-<div class="col-md-4 col-sm-4 col-xs-4">
+<div class="col-md-6 col-sm-6 col-xs-6">
     <div class="form-group">
         <label for="fieldPrecio">Precio</label>
         <?php echo $this->tag->textField(["precio", "class" => "form-control", "id" => "fieldPrecio"]) ?>
     </div>
 </div>
 
-<div class="col-md-4 col-sm-4 col-xs-4">
-    <label for="fieldEsRebajado">Es rebajado</label>
-    <?php echo $this->tag->checkField(["es_rebajado", "type" => "number", "class" => "", "id" => "fieldEsRebajado", 'value' => 1]) ?>
-</div>
-
-<div class="col-md-4 col-sm-4 col-xs-4">
-    <label for="fieldActivo">Activo</label>
-    <?php echo $this->tag->checkField(["activo", "type" => "number", "class" => "", "id" => "fieldActivo", 'value' => 1]) ?>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
+<div class="col-md-6 col-sm-6 col-xs-6">
     <div class="form-group">
         <label for="fieldEnlace">Enlace</label>
         <?php echo $this->tag->textField(["enlace", "class" => "form-control", "id" => "fieldEnlace"]) ?>

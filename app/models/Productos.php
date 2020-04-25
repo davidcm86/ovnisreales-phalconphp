@@ -100,13 +100,13 @@ class Productos extends \Phalcon\Mvc\Model
             ])
         );
 
-        $validator->add(
+        /*$validator->add(
             'precio',
             new PresenceOf([
                 'model'   => $this,
                 'message' => 'El Precio es obligatorio.',
             ])
-        );
+        );*/
 
         $validator->add(
             'enlace',

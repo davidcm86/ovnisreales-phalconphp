@@ -8,6 +8,8 @@ use Phalcon\Http\Response;
 use Phalcon\Paginator\Adapter\QueryBuilder as PaginatorQueryBuilder;
 use Phalcon\Mvc\Model\Criteria;
 
+require_once BASE_PATH . '/vendor/simple-html-dom/simple-html-dom/simple_html_dom.php';
+
 class ProductosController extends ControllerBase
 {
     public function initialize()
@@ -58,25 +60,32 @@ class ProductosController extends ControllerBase
             $producto->tipo_moneda_id = $this->__getIdTipoMonedaid($this->idiomaAdmin);
             $producto->categoria_id = $this->request->getPost('categoria_id');
             $producto->precio = $this->request->getPost('precio');
-            $producto->es_rebajado = $this->request->getPost('es_rebajado');
-            $producto->activo = $this->request->getPost('activo');
+            $producto->es_rebajado = rand(0, 1);
+            $producto->activo = 1;
             $producto->enlace = $this->request->getPost('enlace');
+            if (!empty($producto->enlace)) $producto = $this->__insertarDataProductoFromUrl($producto);
             $files = $this->request->getUploadedFiles();
             if (isset($files[0]) && !empty($files[0]->getName())) $producto->imagen = "validation-true";
-            if ($producto->save()) {
-                $rutaImagen = BASE_PATH . '/public/images/productos/' . $this->idiomaAdmin . '/' . Categorias::getSlugCategoria($producto->categoria_id) . '/';
-                $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $this->Slug->generate($producto->nombre_producto));
-                if (!empty($rutaImagenBd)) {
-                    $producto->imagen = $rutaImagenBd;
-                    $producto->update();
+            if (!empty($producto->imagen) && !empty($producto->precio)) {
+                if ($producto->save()) {
+                    $rutaImagen = BASE_PATH . '/public/images/productos/' . $this->idiomaAdmin . '/' . Categorias::getSlugCategoria($producto->categoria_id) . '/';
+                    $rutaImagenBd = $this->ImagenesPlugin->uploadGenericoMultiple($rutaImagen, $this->Slug->generate($producto->nombre_producto));
+                    if (!empty($rutaImagenBd)) {
+                        $producto->imagen = $rutaImagenBd;
+                        $producto->update();
+                    }
+                    $this->flashSession->success("El producto ha sido creada correctamente.");
+                    $this->response->redirect('/admin/productos/crear');
+                } else {
+                    $messagesError = [];
+                    foreach ($producto->getMessages() as $message) {
+                        $messagesError[] = $message . '</br>';
+                    }
+                    $this->view->messagesError = $messagesError;
                 }
-                $this->flashSession->success("El producto ha sido creada correctamente.");
-                $this->response->redirect('/admin/productos');
             } else {
-                $messagesError = [];
-                foreach ($producto->getMessages() as $message) {
-                    $messagesError[] = $message . '</br>';
-                }
+                if (empty($producto->imagen)) $messagesError[] = 'No se ha guardado la imagen</br>';
+                if (empty($producto->precio)) $messagesError[] = 'No se ha guardado el precio</br>';
                 $this->view->messagesError = $messagesError;
             }
         }
@@ -168,5 +177,55 @@ class ProductosController extends ControllerBase
             default:
                 return 1;
         }
+    }
+
+        /**
+     * Obtenemos los datos del producto de amazon mediante la url. Debido a un error al obtener la url, tengo que
+     * copiar el html a un fichero para leer de ahí.
+     */
+    private function __insertarDataProductoFromUrl($producto)
+    {
+        $instance = new \simple_html_dom();
+        $html = file_get_contents($producto->enlace);
+        $html = preg_replace("[\n|\r|\n\r]", "", $html);
+        // escribimos le html en un fichero
+        $rutaArchivoTmp = BASE_PATH . '/tmp/archivo.html';
+        $myfile = fopen($rutaArchivoTmp, "w") or die("Unable to open file!");
+        fwrite($myfile,  preg_replace("[\n|\r|\n\r]", "", trim($html)));
+        fclose($myfile);
+        // obtenemos el html para coger el DOM
+        $html = file_get_html($rutaArchivoTmp);
+        if (method_exists($html,"find")) {
+            // then check if the html element exists to avoid trying to parse non-html
+            if ($html->find('html')) {
+                foreach($html->find('span#price_inside_buybox') as $element) {
+                    if (!empty($element->plaintext)) {
+                        $precio = $element->plaintext;
+                        $precio = strip_tags($precio);
+                        $precio = str_replace('€', '', $precio);
+                        $precio = str_replace('$', '', $precio);
+                        $precio = str_replace(',', '.', $precio);
+                        $precio = str_replace(' ', '', $precio);
+                        $precio = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $precio); // limpia caracteres ascii que no se ven y en mi caso es un espacio
+                        $producto->precio = $precio;
+                    }
+                }
+                foreach($html->find('div[class=imgTagWrapper]') as $element) {
+                    foreach($element->find('img') as $img)
+                    {
+                        if (!empty($img->src)) {
+                            $nombreProducto = trim($producto->nombre_producto);
+                            $nombreProducto = $this->Slug->generate($nombreProducto) . '.jpg';
+                            $rutaBd = '/images/productos/' . $this->idiomaAdmin . '/' . Categorias::getSlugCategoria($producto->categoria_id) . '/' . $nombreProducto;
+                            $rutaFileSystem = BASE_PATH . '/public/images/productos/' . $this->idiomaAdmin . '/' . Categorias::getSlugCategoria($producto->categoria_id);
+                            $this->ImagenesPlugin->copiarImagenUrl($rutaFileSystem, file_get_contents($img->src), $nombreProducto);
+                            $producto->imagen = $rutaBd;
+                        }
+                    }
+                }
+            }
+       }
+       if (!file_exists($$rutaArchivoTmp)) unlink($rutaArchivoTmp);
+       return $producto;
     }
 }

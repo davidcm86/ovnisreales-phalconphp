@@ -24,6 +24,7 @@ class IndexController extends ControllerBase
             "description" => 'Tienda online de artículos de ovnis reales y extraterrestres. Camisetas, tazas, ropa, colgantes...',
         );
         $this->view->jsonld = json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $this->view->imagenOg = '/img/common/ovni-logo.svg';
     }
 
 }

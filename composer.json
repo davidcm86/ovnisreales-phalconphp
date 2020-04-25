@@ -2,6 +2,7 @@
 	"require": {
 		"phalcon/breadcrumbs": "^1.4",
 		"digitalbazaar/json-ld": "*",
-		"zaininnari/html-minifier": "*"
+		"zaininnari/html-minifier": "*",
+		"simple-html-dom/simple-html-dom": "*"
 	}
 }

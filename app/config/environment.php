@@ -14,11 +14,13 @@
                     defined('DOMINIO') || define('DOMINIO', 'https://www.mx.ovnisreales.loc');
                     defined('DOMINIO_SELECT') || define('DOMINIO_SELECT', 'mx');
                     defined('IDIOMA') || define('IDIOMA', 'mx-MX');
+                    defined('IDIOMA_OG') || define('IDIOMA_OG', 'mx_MX');
                     break;
                 case 'es.ovnisreales.loc':
                     defined('DOMINIO') || define('DOMINIO', 'https://www.es.ovnisreales.loc');
                     defined('DOMINIO_SELECT') || define('DOMINIO_SELECT', 'es');
                     defined('IDIOMA') || define('IDIOMA', 'es-ES');
+                    defined('IDIOMA_OG') || define('IDIOMA_OG', 'es_ES');
                     break;
                 case 'ovnisreales.loc':
                     if (ENVIRONMENT == 'development') {

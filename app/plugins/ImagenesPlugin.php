@@ -34,6 +34,20 @@ class ImagenesPlugin extends Plugin
         return;
     }
 
+    /**
+     * Obtenemos la imagen data de una url y la copiamos en la ruta que queramos
+     */
+    public function copiarImagenUrl($rutaImagen, $dataImagen, $nombreProducto)
+    {
+        if (!file_exists($rutaImagen)) {
+            mkdir($rutaImagen, 0777, true);
+            chmod($rutaImagen, 0777);
+        }
+        file_put_contents($rutaImagen . '/' . $nombreProducto, $dataImagen);
+        $this->generarImagenesTamanios($rutaImagen);
+
+    }
+
     public function extensionesPermitidas($extension)
     {
         $extensiones = ['jpg', 'jpeg', 'gif', 'png', 'svg'];

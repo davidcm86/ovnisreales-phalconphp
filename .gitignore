@@ -1,2 +1,4 @@
 tmp/
-/public/images
+/public/images/*
+/vendor/*
+composer.lock

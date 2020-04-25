@@ -107,7 +107,7 @@ class CategoriasController extends ControllerBase
                     }
                 }
                 $this->flashSession->success("La categoría ha sido creada correctamente.");
-                $this->response->redirect('/admin/categorias');
+                $this->response->redirect('/admin/categorias/editar/' . $id);
             } else {
                 $messagesError = [];
                 foreach ($categoria->getMessages() as $message) {
