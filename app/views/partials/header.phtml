@@ -1,32 +1,27 @@
-<div class="row">
-    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-        <a href="/">
-            <?php
-                echo Phalcon\Tag::image(
-                [
-                    "img/common/ovni-logo.svg",
-                    "alt" => "Comercio online productos ovnis y extraterrestres",
-                ]);
-            ?>
-        </a>
+<header>
+    <div class="container">
+        <a href="/" class="logo"><img src="/img/common/logo-ovnis-reales.svg" alt="Ovnis Reales. Comercio online productos ovnis y extraterrestres" /></a>
     </div>
-    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-        <div class="select">
-            <?php
-                echo $this->tag->select(
-                [
-                    'selectLanguage',
-                    $languages,
-                    'using' => [
-                        'language',
-                        'name',
-                    ],
-                    'emptyText'  => 'Elige tu país',
-                ]);
-            ?>
-        </div>
+</header>
+<div class="container">
+    <div class="publi">
+        <span>Publicidad</span>
     </div>
-    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-        Publicidad
+</div>
+<div class="titular">
+    <h1><?php echo $h1; ?></h1>
+    <div class="select">
+        <?php
+            echo $this->tag->select(
+            [
+                'selectLanguage',
+                $languages,
+                'using' => [
+                    'language',
+                    'name',
+                ],
+                'emptyText'  => 'Elige tu país',
+            ]);
+        ?>
     </div>
 </div>

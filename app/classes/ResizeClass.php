@@ -5,8 +5,8 @@ use OvnisReales\Classes\ResizeClass;
 Class ResizeClass {
     // *** Class variables
     private $image;
-    private $width;
-    private $height;
+    public $width;
+    public $height;
     private $imageResized;
 
     function __construct($fileName)

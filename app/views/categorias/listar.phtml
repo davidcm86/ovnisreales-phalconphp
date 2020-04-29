@@ -1,54 +1,40 @@
-<!-- Breadcrumbs -->
-<ol class="breadcrumbs">
-    <?php $this->Breadcrumbs->output(); ?>
-</ol>
-<div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-    <h1><?php echo $categoria->nombre; ?></h1>
-</div>
-<div class="row">
-    <?php foreach ($productos as $producto) { ?>
-        <div class="col-sm-4 aligner aligner--centerHoritzontal aligner--centerVertical">
-            <div class="container">
-                <a class="producto-amazon" onclick="estadisticaProducto(<?php echo $producto->id; ?>)" target="_blank" href="<?php echo $producto->enlace; ?>">
-                    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-                        <?php echo $this->Truncate->truncar(strip_tags($producto->nombre_producto), 75); ?>
-                    </div>
-                    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-                        <?php echo $this->tag->image(
+<div class="bgproductos">
+    <div class="container">
+        <ol class="breadcrumbs">
+            <?php $this->Breadcrumbs->output(); ?>
+        </ol>
+        <?php echo $this->view->partial('partials/nav'); ?>
+        <p><?php echo $categoria->descripcion_principal; ?></p>
+        <?php foreach ($productos as $producto) { ?>
+            <div class="bloque-producto">
+                <a target="_blank" onclick="estadisticaProducto(<?php echo $producto->id; ?>)" href="<?php echo $producto->enlace; ?>">
+                    <?php 
+                        echo $this->tag->image(
                             [
                                 $producto->imagen,
                                 'alt' => $producto->nombre_producto,
-                                'title' => $producto->nombre_producto
+                                'title' => $producto->nombre_producto,
+                                'class' => 'img-responsive'
                                 ]
                             );
-                        ?>
-                    </div>
+                    ?>
                 </a>
-                <div class="container">
-                    <div class="row">
-                            <div class="col aligner aligner--contentEnd">
-                                <?php if ($producto->es_rebajado == 1) { ?>
-                                    <ul>
-                                        <li class="tag">
-                                            <a href="#">Rebajado</a>
-                                        </li>
-                                    </ul>
-                                <?php } ?>
-                            </div>
-                            <div class="col aligner aligner--contentEnd">
-                                <?php if ($producto->TipoMonedas->id == 1) { ?>
-                                    <ul>
-                                        <li class="badge"><?php echo $producto->precio; ?>&nbsp;<?php echo $producto->TipoMonedas->tipo; ?></li>
-                                    </ul>
-                                <?php } else { ?>
-                                    <ul>
-                                        <li class="badge"><?php echo $producto->TipoMonedas->tipo; ?>&nbsp;<?php echo $producto->precio; ?></li>
-                                    </ul>
-                                <?php } ?>
-                            </div>
-                    </div>
-                </div>
+                <br>
+                <p class="descripcion"><?php echo $this->Truncate->truncar(strip_tags($producto->nombre_producto), 75); ?></p>
+                <?php $oferta = ($producto->es_rebajado == 1) ? "Oferta " : ""; ?>
+                <?php if ($producto->TipoMonedas->id == 1) { ?>
+                    <span class="descuento"><?php echo $oferta . $producto->precio; ?>&nbsp;<?php echo $producto->TipoMonedas->tipo; ?></span>
+                <?php } else { ?>
+                    <span class="descuento"><?php echo $oferta . $producto->TipoMonedas->tipo; ?>&nbsp;<?php echo $producto->precio; ?></span>
+                <?php } ?>
+                <br>
+                <a target="_blank" onclick="estadisticaProducto(<?php echo $producto->id; ?>)" href="<?php echo $producto->enlace; ?>" class="button">Comprar</a>
             </div>
-        </div>
-    <?php } ?>
+        <?php } ?>
+        <div class="clearfix"></div>
+        <p><?php echo $categoria->descripcion_secundaria; ?></p>
+        <?php if (isset($contenidoRelacionado)) { ?>
+            <h2>También te puede interesar</h2>
+        <?php } ?>
+    </div>
 </div>

@@ -1,0 +1,17 @@
+<div class="categorias bar">
+            <label class="floatRight" for="navBtn"><span></span></label>
+</div>
+<?php if (isset($categoriasPrincipales)) { ?>
+    <div class="categorias-list">
+        <input type="checkbox" class="navbutton" id="navBtn" />
+        <nav>
+            <ul>
+                <?php foreach ($categoriasPrincipales as $categoriaPrin) { ?>
+                    <li>
+                        <a href="/<?php echo $categoriaPrin->slug; ?>"><?php echo $categoriaPrin->nombre; ?></a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </nav>
+    </div>
+<?php } ?>

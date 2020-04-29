@@ -24,6 +24,7 @@ class ImagenesPlugin extends Plugin
                     $salvarRutaImagen = $rutaImagen . '/' . $nombreFichero;
                     $salvarRutaImagen = str_replace('//', '/', $salvarRutaImagen);
                     $file->moveTo($salvarRutaImagen);
+                    // generar iamgenes con class PHP
                     $this->generarImagenesTamanios($salvarRutaImagen);
                     chmod($salvarRutaImagen, 0777);
                     $returnRutaBD = explode('/public', $rutaSalvarBd);
@@ -78,7 +79,19 @@ class ImagenesPlugin extends Plugin
         $rutaImagenAbsoluta = str_replace('//', '/', $rutaImagenAbsoluta);
         if (file_exists($rutaImagenAbsoluta)) {
             $resizeObj = new ResizeClass($rutaImagenAbsoluta);
-            $resizeObj -> resizeImage(450, 300, 'crop');
+            // dependiendo de la anchura y altura de la imagen, se utiliza un resize u otro
+            $widthImagen = $resizeObj->width;
+            $heightImagen = $resizeObj->height;
+            if ($widthImagen >= $heightImagen) {
+                // es más ancha que larga
+                $widthImagen = 270;
+                $heightImagen = 180;
+            } else {
+                // es más larga que ancha
+                $widthImagen = 180;
+                $heightImagen = 270;
+            }
+            $resizeObj -> resizeImage($widthImagen, $heightImagen, 'auto');
             $resizeObj -> saveImage($rutaImagenAbsoluta, 90);
         }
     }

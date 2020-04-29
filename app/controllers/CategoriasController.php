@@ -18,10 +18,11 @@ class CategoriasController extends ControllerBase
         //$categoria = $this->modelsCache->get('categorias-listado-' . DOMINIO_SELECT);
         //if (empty($categoria)) {
             $categoria = Categorias::findFirst(["conditions" => "pais = '" . DOMINIO_SELECT . "' AND slug = '" . $categoriaSlug . "'"]);
-            $this->modelsCache->save('categorias-listado-' . DOMINIO_SELECT, $categoria);
+            //$this->modelsCache->save('categorias-listado-' . DOMINIO_SELECT, $categoria);
         //}
         $this->view->imagenOg = $categoria->imagen;
         $this->view->categoria = $categoria;
+        $this->view->h1 = $categoria->nombre;
 
         //$productos = $this->modelsCache->get('categorias-productos-' . DOMINIO_SELECT);
         //if (empty($productos)) {
@@ -39,6 +40,12 @@ class CategoriasController extends ControllerBase
         $this->Breadcrumbs->add($categoria->nombre, '/' . $categoria->slug);
         $breadCrumbJsonld[] = ['nombre' => $categoria->nombre, 'url' => '/' . $categoria->slug];
 
+        //$categoriasPrincipales = $this->modelsCache->get('categorias-principales-' . DOMINIO_SELECT);
+        //if (empty($categoriasPrincipales)) {
+            $categoriasPrincipales = Categorias::find(["conditions" => "pais = '" . DOMINIO_SELECT . "'", "order" => "rand()"]);
+            $this->modelsCache->save('categorias-principales-' . DOMINIO_SELECT, $categoriasPrincipales);
+        //}
+        $this->view->categoriasPrincipales = $categoriasPrincipales;
 
         // json datos
         $itemListElementBread = [];

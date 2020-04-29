@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html="<?php echo IDIOMA_OG; ?>">
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" type="text/css" href="/css/estilos.css">
 		<title><?php echo $titleSeo; ?></title>
 		<meta name="description" content="<?php echo $descriptionSeo; ?>">
 		<?php if (isset($metakeys) && !empty($metakeys)) echo '<meta name="keywords" content="'.$metakeys.'">'; ?>
@@ -19,7 +19,8 @@
 		<meta property="og:locale:alternate" content="<?php echo IDIOMA_OG; ?>" />
 		<meta property="og:site_name" content="OVNIS REALES" />
 
-		<?php $this->assets->outputCss('localCss'); ?>
+		<?php //$this->assets->outputCss('localCss'); ?>
+
 		<?php if (isset($jsonld)) { ?>
 			<script type="application/ld+json">
 				<?php echo $jsonld; ?>
@@ -32,13 +33,9 @@
 		<?php } ?>
 	</head>
 	<body>
-		<div class="container-medium">
-			<?php echo $this->view->partial('partials/header'); ?>
-			<?php echo $this->getContent(); ?>
-		</div>
+		<?php echo $this->view->partial('partials/header'); ?>
+		<?php echo $this->getContent(); ?>
+		<?php echo $this->view->partial('partials/footer'); ?>
 	</body>
-	<?php if ($this->router->getControllerName() == "videos") { ?>
-		<script async defer src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v3.2"></script>
-	<?php } ?>
 	<?php $this->assets->outputJs(); ?>
 </html>

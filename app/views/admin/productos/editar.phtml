@@ -77,7 +77,7 @@
 
 <?php if (!empty($imagen) && file_exists(BASE_PATH . '/public/' . $imagen)) { ?>
     <div class="form-group col-md-12 col-sm-12 col-12">
-        <?php echo $this->tag->image([$imagen, 'style' => 'width:500px;height:300px;']); ?></br></br>
+        <?php echo $this->tag->image([$imagen]); ?></br></br>
         </br>
     </div>
 <?php } ?>

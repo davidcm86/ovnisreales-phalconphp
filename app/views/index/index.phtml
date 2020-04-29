@@ -1,29 +1,25 @@
-<div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-    <h1>Tienda online de artículos de ovnis y extraterrestres</h1>
-</div>
-<div class="row">
-    <?php foreach ($categoriasPrincipales as $categoriaPrincipal) { ?>
-        <div class="col-sm-4 aligner aligner--centerHoritzontal aligner--centerVertical">
-            <div class="container">
-                <a href="/<?php echo $categoriaPrincipal->slug; ?>">
-                    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-                        <?php echo $categoriaPrincipal->nombre; ?>
-                    </div>
-                    <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-                        <?php echo $this->tag->image(
+<div class="bgproductos">
+    <div class="container">
+        <?php foreach ($categoriasPrincipales as $categoriaPrincipal) { ?>
+            <a href="/<?php echo $categoriaPrincipal->slug; ?>">
+                <div class="bloque-producto">
+                    <p class="nombre"><?php echo $categoriaPrincipal->nombre; ?></p>
+                    <br>
+                    <?php
+                        echo $this->tag->image(
                             [
                                 $categoriaPrincipal->imagen,
                                 'alt' => $categoriaPrincipal->nombre,
-                                'title' => $categoriaPrincipal->nombre
+                                'title' => $categoriaPrincipal->nombre/*,
+                                'class' => 'img-responsive'*/
                                 ]
                             );
-                        ?>
-                    </div>
-                </a>
-                <div class="col-sm-12 aligner aligner--centerHoritzontal aligner--centerVertical">
-                    <p><?php echo $categoriaPrincipal->description_seo; ?></p>
+                    ?>
+                    <p class="descripcion"><?php echo $this->Truncate->truncar(strip_tags($categoriaPrincipal->description_seo), 75); ?></p>
+                    <br>
                 </div>
-            </div>
-        </div>
-    <?php } ?>
+            </a>
+        <?php } ?>
+        <div class="clearfix"></div>
+    </div>
 </div>
