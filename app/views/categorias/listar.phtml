@@ -33,8 +33,29 @@
         <?php } ?>
         <div class="clearfix"></div>
         <p><?php echo $categoria->descripcion_secundaria; ?></p>
+        <div class="clearfix"></div>
         <?php if (isset($contenidoRelacionado)) { ?>
             <h2>También te puede interesar</h2>
+            <?php foreach ($contenidoRelacionado as $contenido) { ?>
+                <div class="bloque-producto">
+                    <a href="/<?php echo $contenido->slug; ?>">
+                        <p class="nombre"><?php echo $contenido->nombre; ?></p>
+                        <br>
+                        <?php
+                            echo $this->tag->image(
+                                [
+                                    $contenido->imagen,
+                                    'alt' => $contenido->nombre,
+                                    'title' => $contenido->nombre
+                                    ]
+                                );
+                        ?>
+                        <p class="descripcion"><?php echo $this->Truncate->truncar(strip_tags($contenido->description_seo), 75); ?></p>
+                        <br>
+                    </a>
+                </div>
+            <?php } ?>
         <?php } ?>
+        <div class="clearfix"></div>
     </div>
 </div>

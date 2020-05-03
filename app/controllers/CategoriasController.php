@@ -23,6 +23,7 @@ class CategoriasController extends ControllerBase
         $this->view->imagenOg = $categoria->imagen;
         $this->view->categoria = $categoria;
         $this->view->h1 = $categoria->nombre;
+        $this->view->contenidoRelacionado = $this->__getCategoriasRandom($categoria->id);
 
         //$productos = $this->modelsCache->get('categorias-productos-' . DOMINIO_SELECT);
         //if (empty($productos)) {
@@ -81,6 +82,22 @@ class CategoriasController extends ControllerBase
         );
 
         $this->view->jsonld = json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    }
+
+    /**
+     * Obtener categorias al azar obviando la actual
+     */
+    private function __getCategoriasRandom($categoriaId)
+    {
+        //$categoriasRelacionadas = $this->modelsCache->get('categorias-azar-' . DOMINIO_SELECT . '-' . $categoriaId);
+        //if (empty($categoriasRelacionadas)) {
+            $categoriasRelacionadas = Categorias::find([
+                "conditions" => "id != " . $categoriaId . " AND pais = '" . DOMINIO_SELECT . "'",
+                "order" => "rand()",
+                "limit" => 3]);
+            $this->modelsCache->save('categorias-azar-' . DOMINIO_SELECT . '-' . $categoriaId, $categoriasRelacionadas);
+        //}
+        return $categoriasRelacionadas;
     }
 
     /**
