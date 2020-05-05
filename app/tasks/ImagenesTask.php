@@ -2,12 +2,14 @@
 
 use Phalcon\Cli\Task;
 
+use OvnisReales\Classes\ResizeClass;
+
 class ImagenesTask extends Task
 {
 
     public function redimensionarresizeAction()
     {
-        $phql = 'SELECT * FROM OvnisReales\Models\Productos as Productos limit 1';
+        $phql = 'SELECT * FROM OvnisReales\Models\Productos as Productos WHERE imagen_tratada = 0';
         $manager = $this->modelsManager;
         $productos = $manager->executeQuery($phql);
         foreach ($productos as $producto) {
@@ -30,13 +32,17 @@ class ImagenesTask extends Task
                 }
                 $resizeObj -> resizeImage($widthImagen, $heightImagen, 'auto');
                 $resizeObj -> saveImage($rutaImagenAbsoluta, 90);
+                $phql = 'UPDATE OvnisReales\Models\Productos SET imagen_tratada = 1 WHERE id = ' . $producto->id;
+                $manager = $this->modelsManager;
+                $manager->executeQuery($phql);
+                sleep('3');
             }
         }
     }
 
 
-    var $tamanos = array(''=>500);
-    var $ruta = BASE_PATH_TASK . '/public/imagenes/contenidos/';
+    //var $tamanos = array(''=>500);
+    //var $ruta = BASE_PATH_TASK . '/public/imagenes/contenidos/';
     /**
      * Redimensionamos las imagenes ya creadas
      */

@@ -4,7 +4,8 @@
             <?php $this->Breadcrumbs->output(); ?>
         </ol>
         <?php echo $this->view->partial('partials/nav'); ?>
-        <p><?php echo $categoria->descripcion_principal; ?></p>
+        <div style="background: #f7f5f5; padding: 15px; border-top:2px solid #99bf10; border-bottom:2px solid #99bf10;" class="texto-descripcion"><?php echo $categoria->descripcion_principal; ?></div>
+        </br>
         <?php foreach ($productos as $producto) { ?>
             <div class="bloque-producto">
                 <a target="_blank" onclick="estadisticaProducto(<?php echo $producto->id; ?>)" href="<?php echo $producto->enlace; ?>">
@@ -13,8 +14,7 @@
                             [
                                 $producto->imagen,
                                 'alt' => $producto->nombre_producto,
-                                'title' => $producto->nombre_producto,
-                                'class' => 'img-responsive'
+                                'title' => $producto->nombre_producto
                                 ]
                             );
                     ?>
@@ -32,10 +32,10 @@
             </div>
         <?php } ?>
         <div class="clearfix"></div>
-        <p><?php echo $categoria->descripcion_secundaria; ?></p>
+        <div style="background: #f7f5f5; padding: 15px; border-top:2px solid #99bf10; border-bottom:2px solid #99bf10;" class="texto-descripcion"><?php echo $categoria->descripcion_secundaria; ?></div>
         <div class="clearfix"></div>
         <?php if (isset($contenidoRelacionado)) { ?>
-            <h2>También te puede interesar</h2>
+            <h2 class="mbottom">También te puede interesar</h2>
             <?php foreach ($contenidoRelacionado as $contenido) { ?>
                 <div class="bloque-producto">
                     <a href="/<?php echo $contenido->slug; ?>">

@@ -351,17 +351,24 @@ h2 {
 }
 
 .bloque-producto .descripcion {
-	font-size:1.6em;
+	font-size:1.7em;
 	line-height:1.1em;
 	text-align:left;
 	color:#444444;
 	margin-bottom:10px;
+	height: 32px;
+}
+
+.bloque-producto img {
+	min-height:170px;
+	max-height:170px;
+	padding:15px 0;
 }
 
 .bloque-producto .button {
 	display:inline-block;
 	background:#99bf10;
-	font-size:1.6em;
+	font-size:1.7em;
 	color:#012b41;
 	text-transform:uppercase;
 	-moz-border-radius:5px;
@@ -389,6 +396,29 @@ h2 {
 	padding:5px;
 	margin-left:15px;
 }
+
+.texto-descripcion p {
+	background:#ffffff;
+	padding:20px;
+	font-size: 100%;
+	vertical-align: baseline;
+	font-size:1.7em;
+	line-height:1.1em;
+	color:#444444;
+	height: auto;
+	-moz-border-radius: 10px / 5px;
+	-webkit-border-radius: 10px / 5px;
+	border-radius: 10px / 5px;
+}
+
+.texto-descripcion h2 {
+	margin-bottom: 10px;
+}
+
+.mbottom {
+	margin-bottom: 10px;
+}
+
 
 
 /* PUBLICIDAD */
