@@ -20,6 +20,7 @@ class CategoriasController extends ControllerBase
             $categoria = Categorias::findFirst(["conditions" => "pais = '" . DOMINIO_SELECT . "' AND slug = '" . $categoriaSlug . "'"]);
             //$this->modelsCache->save('categorias-listado-' . DOMINIO_SELECT, $categoria);
         //}
+
         $this->view->imagenOg = $categoria->imagen;
         $this->view->categoria = $categoria;
         $this->view->h1 = $categoria->nombre;
