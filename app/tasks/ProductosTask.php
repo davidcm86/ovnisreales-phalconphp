@@ -5,7 +5,7 @@ use Phalcon\Cli\Task;
 class ProductosTask extends Task
 {
     /**
-     * Cada 24h generamos al azar las rebajas
+     * Cada 24h generamos al azar las rebajas y así tb movemos el orden de los productos
      */
     public function rebajasAction()
     {

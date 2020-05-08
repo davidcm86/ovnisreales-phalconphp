@@ -28,7 +28,7 @@ class CategoriasController extends ControllerBase
 
         //$productos = $this->modelsCache->get('categorias-productos-' . DOMINIO_SELECT);
         //if (empty($productos)) {
-            $productos = Productos::find(["conditions" => "categoria_id = " . $categoria->id]);
+            $productos = Productos::find(["conditions" => "categoria_id = " . $categoria->id . "","order" => "rand()"]);
             $this->modelsCache->save('categorias-productos-' . DOMINIO_SELECT, $productos);
         //}
         $this->view->productos = $productos;
