@@ -118,7 +118,7 @@ class ProductosController extends ControllerBase
                     $producto->imagen = $rutaImagenBd;
                     $producto->update();
                 }
-                $this->flashSession->success("El producto ha sido creada correctamente.");
+                $this->flashSession->success("El producto ha sido editado correctamente.");
                 $this->response->redirect('/admin/productos');
             } else {
                 $messagesError = [];
@@ -207,6 +207,10 @@ class ProductosController extends ControllerBase
                         $precio = str_replace(',', '.', $precio);
                         $precio = str_replace(' ', '', $precio);
                         $precio = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $precio); // limpia caracteres ascii que no se ven y en mi caso es un espacio
+                        if (substr_count($precio, '.') == 2) {
+                            $precioExplode = explode('.', $precio);
+                            $precio = $precioExplode[0] . $precioExplode[1] . '.' . $precioExplode[2];
+                        }
                         $producto->precio = $precio;
                     }
                 }
