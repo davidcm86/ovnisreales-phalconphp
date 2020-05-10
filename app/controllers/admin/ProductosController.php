@@ -213,7 +213,24 @@ class ProductosController extends ControllerBase
                         }
                         $producto->precio = $precio;
                     }
+                 }
+                foreach($html->find('span#priceblock_ourprice') as $element) {
+                    if (!empty($element->plaintext)) {
+                        $precio = $element->plaintext;
+                        $precio = strip_tags($precio);
+                        $precio = str_replace('€', '', $precio);
+                        $precio = str_replace('$', '', $precio);
+                        $precio = str_replace(',', '.', $precio);
+                        $precio = str_replace(' ', '', $precio);
+                        $precio = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $precio); // limpia caracteres ascii que no se ven y en mi caso es un espacio
+                        if (substr_count($precio, '.') == 2) {
+                            $precioExplode = explode('.', $precio);
+                            $precio = $precioExplode[0] . $precioExplode[1] . '.' . $precioExplode[2];
+                        }
+                        $producto->precio = $precio;
+                    }
                 }
+                    
                 foreach($html->find('div[class=imgTagWrapper]') as $element) {
                     foreach($element->find('img') as $img)
                     {
