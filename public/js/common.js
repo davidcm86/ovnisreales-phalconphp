@@ -5,5 +5,5 @@ var selectlanguage = document.getElementById("selectLanguage");
 selectlanguage.addEventListener("change", changeLanguage);
 function changeLanguage() {
     var language = selectlanguage.options[selectlanguage.selectedIndex].value;
-    window.location.href = 'https://www.' + language + '.ovnisreales.loc';
+    window.location.href = 'https://www.' + language + '.ovnisreales.com';
 }

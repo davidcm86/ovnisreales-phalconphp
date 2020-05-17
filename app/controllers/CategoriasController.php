@@ -15,22 +15,22 @@ class CategoriasController extends ControllerBase
     {
         $this->assets->addJs('js/productos.js');
         $categoriaSlug = $this->dispatcher->getParam('categoriaSlug');
-        //$categoria = $this->modelsCache->get('categorias-listado-' . DOMINIO_SELECT);
-        //if (empty($categoria)) {
+        $categoria = $this->modelsCache->get('categorias-listado-' . $categoriaSlug . '-' . DOMINIO_SELECT);
+        if (empty($categoria)) {
             $categoria = Categorias::findFirst(["conditions" => "pais = '" . DOMINIO_SELECT . "' AND slug = '" . $categoriaSlug . "'"]);
-            //$this->modelsCache->save('categorias-listado-' . DOMINIO_SELECT, $categoria);
-        //}
+            $this->modelsCache->save('categorias-listado-' . $categoriaSlug . '-' . DOMINIO_SELECT, $categoria);
+        }
 
         $this->view->imagenOg = $categoria->imagen;
         $this->view->categoria = $categoria;
         $this->view->h1 = $categoria->nombre;
         $this->view->contenidoRelacionado = $this->__getCategoriasRandom($categoria->id);
 
-        //$productos = $this->modelsCache->get('categorias-productos-' . DOMINIO_SELECT);
-        //if (empty($productos)) {
+        $productos = $this->modelsCache->get('categorias-productos-' . $categoriaSlug . '-' . DOMINIO_SELECT);
+        if (empty($productos)) {
             $productos = Productos::find(["conditions" => "categoria_id = " . $categoria->id . "","order" => "rand()"]);
-            $this->modelsCache->save('categorias-productos-' . DOMINIO_SELECT, $productos);
-        //}
+            $this->modelsCache->save('categorias-productos-' . $categoriaSlug . '-' . DOMINIO_SELECT, $productos);
+        }
         $this->view->productos = $productos;
         $this->view->titleSeo = $categoria->title_seo;
         $this->view->descriptionSeo = $categoria->description_seo;
@@ -42,11 +42,11 @@ class CategoriasController extends ControllerBase
         $this->Breadcrumbs->add($categoria->nombre, '/' . $categoria->slug);
         $breadCrumbJsonld[] = ['nombre' => $categoria->nombre, 'url' => '/' . $categoria->slug];
 
-        //$categoriasPrincipales = $this->modelsCache->get('categorias-principales-' . DOMINIO_SELECT);
-        //if (empty($categoriasPrincipales)) {
+        $categoriasPrincipales = $this->modelsCache->get('categorias-principales-' . DOMINIO_SELECT);
+        if (empty($categoriasPrincipales)) {
             $categoriasPrincipales = Categorias::find(["conditions" => "pais = '" . DOMINIO_SELECT . "'", "order" => "rand()"]);
             $this->modelsCache->save('categorias-principales-' . DOMINIO_SELECT, $categoriasPrincipales);
-        //}
+        }
         $this->view->categoriasPrincipales = $categoriasPrincipales;
 
         // json datos
@@ -90,14 +90,14 @@ class CategoriasController extends ControllerBase
      */
     private function __getCategoriasRandom($categoriaId)
     {
-        //$categoriasRelacionadas = $this->modelsCache->get('categorias-azar-' . DOMINIO_SELECT . '-' . $categoriaId);
-        //if (empty($categoriasRelacionadas)) {
+        $categoriasRelacionadas = $this->modelsCache->get('categorias-azar-' . DOMINIO_SELECT . '-' . $categoriaId);
+        if (empty($categoriasRelacionadas)) {
             $categoriasRelacionadas = Categorias::find([
                 "conditions" => "id != " . $categoriaId . " AND pais = '" . DOMINIO_SELECT . "'",
                 "order" => "rand()",
                 "limit" => 3]);
             $this->modelsCache->save('categorias-azar-' . DOMINIO_SELECT . '-' . $categoriaId, $categoriasRelacionadas);
-        //}
+        }
         return $categoriasRelacionadas;
     }
 

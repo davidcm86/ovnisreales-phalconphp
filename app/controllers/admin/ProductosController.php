@@ -246,7 +246,7 @@ class ProductosController extends ControllerBase
                 }
             }
        }
-       if (!file_exists($$rutaArchivoTmp)) unlink($rutaArchivoTmp);
+       if (!file_exists($rutaArchivoTmp)) unlink($rutaArchivoTmp);
        return $producto;
     }
 }
