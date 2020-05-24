@@ -22,9 +22,9 @@
 <div class="titular">
     <h1><?php echo $h1; ?></h1>
     <div class="select">
-        <select id="selectLanguage" name="selectLanguage">
+        <select on="change:AMP.navigateTo(url=event.value)">
             <?php foreach ($languages as $key => $language) { ?>
-                <option value="<?php echo $key; ?>"><?php echo $language; ?></option>
+                <option value="<?php echo ($key == 'es') ? 'https://www.es.ovnisreales.com' : 'https://www.mx.ovnisreales.com'; ?>"><?php echo $language; ?></option>
             <?php } ?>
         </select>
     </div>

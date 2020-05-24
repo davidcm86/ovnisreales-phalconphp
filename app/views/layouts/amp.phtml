@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html ⚡>
+    <html ⚡ lang="<?php echo IDIOMA_OG; ?>">
 	<head>
 		<meta charset="utf-8">
         <title><?php echo $titleSeo; ?></title>
         <script async src="https://cdn.ampproject.org/v0.js"></script>
         <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+        <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
         <?php $aqui = DOMINIO.str_replace('/','',str_replace('amp','',$this->router->getRewriteUri()))?>
         <link rel="canonical" href="<?php echo $aqui ?>" />
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
