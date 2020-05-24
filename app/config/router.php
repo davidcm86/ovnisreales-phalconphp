@@ -40,11 +40,21 @@ if (isset($categorias[DOMINIO_SELECT])) {
 }
 // categorias
 $router->add(
-    '/('.$categorias.')',
+    '/('.$categorias.')(\.amp)*',
     [
         'controller'        => 'categorias',
         'action'            => 'listar',
-        'categoriaSlug'     => 1
+        'categoriaSlug'     => 1,
+        'extension'         => 2
+    ]
+);
+
+$router->add(
+    '/(amp)',
+    [
+        'controller'        => 'index',
+        'action'            => 'index',
+        'extension'         => 1
     ]
 );
 $router->handle();

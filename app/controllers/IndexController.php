@@ -26,6 +26,18 @@ class IndexController extends ControllerBase
         $this->view->h1 = "Tienda online de artículos ovnis y extraterrestres";
         $this->view->jsonld = json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         $this->view->imagenOg = '/img/common/ovni-logo.svg';
+        $this->view->textoInicio = $this->__textoInicio();
+        if ($this->dispatcher->getParam("extension") == 'amp') $this->view->pick('index/amp/index');
+    }
+
+    private function __textoInicio() 
+    {
+        if (DOMINIO_SELECT == 'es') {
+            $texto = 'Si te gustan los 🛸 OVNIS y los 👽 EXTRATERRESTRES esta es tu web para comprar artículos de ufología al mejor precio. Los productos han sido elegidos especialmente para ti 💜 atrevete a ser diferente.';
+        } else {
+            $texto = 'En 🛸 OVNIS REALES tienes los mejores productos de ufología y 👽 extraterrestres, con los precios más económicos y los mejores artículos solo para ti 💜 ¿te atreves?.';
+        }
+        return $texto;
     }
 
 }

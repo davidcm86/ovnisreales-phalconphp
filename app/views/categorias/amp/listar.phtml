@@ -6,28 +6,19 @@
         <?php echo $this->view->partial('partials/nav'); ?>
         <div style="background: #f7f5f5; padding: 15px; border-top:2px solid #99bf10; border-bottom:2px solid #99bf10;" class="texto-descripcion"><?php echo $categoria->descripcion_principal; ?></div>
         <!-- ovnis reales 2 -->
-        <ins class="adsbygoogle"
-            style="display:block"
+        <amp-ad width="100vw" height="320"
+            type="adsense"
             data-ad-client="ca-pub-9579326870526141"
             data-ad-slot="9450213218"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+            data-auto-format="rspv"
+            data-full-width="">
+        <div overflow=""></div>
+        </amp-ad>
         </br>
         <?php foreach ($productos as $producto) { ?>
             <div class="bloque-producto">
-                <a target="_blank" onclick="estadisticaProducto(<?php echo $producto->id; ?>)" href="<?php echo $producto->enlace; ?>">
-                    <?php 
-                        echo $this->tag->image(
-                            [
-                                $producto->imagen,
-                                'alt' => $producto->nombre_producto,
-                                'title' => $producto->nombre_producto
-                                ]
-                            );
-                    ?>
+                <a target="_blank" href="<?php echo $producto->enlace; ?>">
+                    <amp-img src="<?php echo $producto->imagen; ?>" width="100" height="50" layout="responsive" alt="<?php echo $producto->nombre_producto; ?>" title="<?php echo $producto->nombre_producto; ?>"></amp-img>
                 </a>
                 <br>
                 <p class="descripcion"><?php echo $this->Truncate->truncar(strip_tags($producto->nombre_producto), 75); ?></p>
@@ -38,22 +29,21 @@
                     <span class="descuento"><?php echo $oferta . $producto->TipoMonedas->tipo; ?>&nbsp;<?php echo $producto->precio; ?></span>
                 <?php } ?>
                 <br>
-                <a target="_blank" onclick="estadisticaProducto(<?php echo $producto->id; ?>)" href="<?php echo $producto->enlace; ?>" class="button">+ INFO</a>
+                <a target="_blank" href="<?php echo $producto->enlace; ?>" class="button">+ INFO</a>
             </div>
         <?php } ?>
         <div class="clearfix"></div>
         <div style="background: #f7f5f5; padding: 15px; border-top:2px solid #99bf10; border-bottom:2px solid #99bf10;" class="texto-descripcion"><?php echo $categoria->descripcion_secundaria; ?></div>
         <div class="clearfix"></div>
         <!-- ovnis reales 3 -->
-        <ins class="adsbygoogle"
-            style="display:block"
+        <amp-ad width="100vw" height="320"
+            type="adsense"
             data-ad-client="ca-pub-9579326870526141"
             data-ad-slot="5961845602"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+            data-auto-format="rspv"
+            data-full-width="">
+        <div overflow=""></div>
+        </amp-ad>
         <?php if (isset($contenidoRelacionado)) { ?>
             <h2 class="mbottom">También te puede interesar</h2>
             <?php foreach ($contenidoRelacionado as $contenido) { ?>
@@ -61,15 +51,7 @@
                     <a href="/<?php echo $contenido->slug; ?>">
                         <p class="nombre"><?php echo $contenido->nombre; ?></p>
                         <br>
-                        <?php
-                            echo $this->tag->image(
-                                [
-                                    $contenido->imagen,
-                                    'alt' => $contenido->nombre,
-                                    'title' => $contenido->nombre
-                                    ]
-                                );
-                        ?>
+                        <amp-img src="<?php echo $contenido->imagen; ?>" width="250" height="150" layout="intrinsic" alt="<?php echo $contenido->nombre; ?>" title="<?php echo $contenido->nombre; ?>"></amp-img>
                         <p class="descripcion"><?php echo $this->Truncate->truncar(strip_tags($contenido->description_seo), 75); ?></p>
                         <br>
                     </a>

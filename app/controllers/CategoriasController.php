@@ -83,6 +83,7 @@ class CategoriasController extends ControllerBase
         );
 
         $this->view->jsonld = json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        if ($this->dispatcher->getParam("extension") == '.amp') $this->view->pick('categorias/amp/listar');
     }
 
     /**

@@ -1,4 +1,5 @@
-<!DOCTYPE html="<?php echo IDIOMA_OG; ?>">
+<!DOCTYPE html>
+<html lang="<?php echo IDIOMA_OG; ?>">
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -18,10 +19,14 @@
 		<?php } ?>		
 		<meta property="og:locale:alternate" content="<?php echo IDIOMA_OG; ?>" />
 		<meta property="og:site_name" content="OVNIS REALES" />
+		<?php if ($this->router->getControllerName() == '') { ?>
+			<link rel="amphtml" href="<?php echo DOMINIO . str_replace('//','/',$this->router->getRewriteUri())?>amp">
+		<?php } else { ?>
+			<link rel="amphtml" href="<?php echo DOMINIO . str_replace('//','/',$this->router->getRewriteUri())?>.amp">
+		<?php } ?>
 
-		<script data-ad-client="ca-pub-9579326870526141" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-		<?php echo $this->view->partial('partials/analitycs'); ?>
-		
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
 		<?php if (isset($jsonld)) { ?>
 			<script type="application/ld+json">
 				<?php echo $jsonld; ?>
@@ -38,5 +43,6 @@
 		<?php echo $this->getContent(); ?>
 		<?php echo $this->view->partial('partials/footer'); ?>
 	</body>
+	<?php echo $this->view->partial('partials/analytics'); ?>
 	<?php $this->assets->outputJs(); ?>
 </html>
