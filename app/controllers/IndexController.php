@@ -27,6 +27,7 @@ class IndexController extends ControllerBase
         $this->view->jsonld = json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         $this->view->imagenOg = '/img/common/ovni-logo.svg';
         $this->view->textoInicio = $this->__textoInicio();
+        $this->view->metakeys = "ovnis reales,tienda online ovnis,tienda online extraterrestres,comprar productos ovnis,comprar productos extraterrestes";
         if ($this->dispatcher->getParam("extension") == 'amp') $this->view->pick('index/amp/index');
     }
 
