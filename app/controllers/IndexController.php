@@ -41,5 +41,9 @@ class IndexController extends ControllerBase
         return $texto;
     }
 
+    public function misCojones() {
+        print_r("mis huevos en tu boca");die;
+    }
+
 }
 

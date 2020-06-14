@@ -82,6 +82,12 @@ class Categorias extends \Phalcon\Mvc\Model
     public $keywords;
 
     /**
+     *
+     * @var string
+     */
+    public $texto_enlace_footer;
+
+    /**
      * Validations and business logic
      *
      * @return boolean

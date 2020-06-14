@@ -48,6 +48,10 @@ $di->setShared('config', function () {
     return include APP_PATH . "/config/config.php";
 });
 
+$di->setShared('config', function () {
+    return include APP_PATH . "/config/config.php";
+});
+
 /**
  * The URL component is used to generate all kind of urls in the application
  */
@@ -57,9 +61,6 @@ $di->set(
         $url = new \Phalcon\Mvc\Url();
         $url->setBaseUri('/');
         return $url;
-});
-$di->set('Mpdf', function () {
-    return new \Mpdf\Mpdf();
 });
 
 /**
@@ -98,10 +99,10 @@ $di->setShared('view', function () {
 /**
  * Inicio librerias
  */
-$di->set('Truncate', function () {
+$di->setShared('Truncate', function () {
     return new Truncate();
 });
-$di->set('Slug', function () {
+$di->setShared('Slug', function () {
     return new Slug();
 });
 $di->setShared('Breadcrumbs', function () {
@@ -114,13 +115,13 @@ $di->setShared('Breadcrumbs', function () {
 /**
  * Inicio plugins
  */
-$di->set(
+$di->setShared(
     'AuthPlugin',
     function() {
         $AuthPlugin = new AuthPlugin;
         return $AuthPlugin;
 });
-$di->set(
+$di->setShared(
     'ImagenesPlugin',
     function() {
         $ImagenesPlugin = new ImagenesPlugin;

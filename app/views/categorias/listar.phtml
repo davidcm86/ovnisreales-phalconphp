@@ -58,7 +58,7 @@
             <h2 class="mbottom">También te puede interesar</h2>
             <?php foreach ($contenidoRelacionado as $contenido) { ?>
                 <div class="bloque-producto">
-                    <a href="/<?php echo $contenido->slug; ?>">
+                    <a rel="nofollow" href="/<?php echo $contenido->slug; ?>">
                         <p class="nombre"><?php echo $contenido->nombre; ?></p>
                         <br>
                         <?php

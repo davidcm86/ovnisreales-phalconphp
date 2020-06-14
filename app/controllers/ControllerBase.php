@@ -4,6 +4,8 @@ namespace OvnisReales\Controllers;
 use Phalcon\Mvc\Controller;
 use Phalcon\Http\Response;
 
+use OvnisReales\Models\Categorias;
+
 use OvnisReales\Classes\MiddleWareViewClass;
 
 class ControllerBase extends Controller
@@ -22,9 +24,21 @@ class ControllerBase extends Controller
         $this->view->languages = ['es' => 'Español', 'mx' => 'México'];
         // enviamos idioma seleccionado al select
         $this->tag->setDefault('selectLanguage', DOMINIO_SELECT);
-        
+
+        $this->__getCategoriasPrincipalesFooter();
+
         // MinifyHTML
         $middleWareViewClass = new MiddleWareViewClass();
         $middleWareViewClass::getInstance()->minifyHtml();
+    }
+
+    private function __getCategoriasPrincipalesFooter()
+    {
+        $categoriasPrincipalesFooter = $this->modelsCache->get('categorias-principales-footer-' . DOMINIO_SELECT);
+        if (empty($categoriasPrincipalesFooter)) {
+            $categoriasPrincipalesFooter = Categorias::find(["conditions" => "pais = '" . DOMINIO_SELECT . "'"]);
+            $this->modelsCache->save('categorias-principales-footer-' . DOMINIO_SELECT, $categoriasPrincipalesFooter);
+        }
+        $this->view->categoriasPrincipalesFooter = $categoriasPrincipalesFooter;
     }
 }
