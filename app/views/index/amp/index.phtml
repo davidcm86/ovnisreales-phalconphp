@@ -7,7 +7,7 @@
                 <div class="bloque-producto">
                     <p class="nombre"><?php echo $categoriaPrincipal->nombre; ?></p>
                     <br>
-                    <amp-img src="<?php echo $categoriaPrincipal->imagen; ?>" width="250" height="150" layout="intrinsic" alt="<?php echo $categoriaPrincipal->nombre; ?>" title="<?php echo $categoriaPrincipal->nombre; ?>"></amp-img>
+                    <amp-img src="<?php echo $categoriaPrincipal->imagen; ?>" width="175" height="150" layout="intrinsic" alt="<?php echo $categoriaPrincipal->nombre; ?>" title="<?php echo $categoriaPrincipal->nombre; ?>"></amp-img>
                     <p class="descripcion"><?php echo $this->Truncate->truncar(strip_tags($categoriaPrincipal->description_seo), 75); ?></p>
                     <br>
                 </div>
