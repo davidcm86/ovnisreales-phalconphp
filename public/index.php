@@ -7,6 +7,7 @@ define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 // se comenta el try para dejar el debug de phalcon
 try {
+
     $di = new FactoryDefault();
 
     include APP_PATH . '/config/environment.php';
